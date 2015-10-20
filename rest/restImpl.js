@@ -23,7 +23,7 @@ exports.all = function (req, res) {
 	});
 };
 
-exports.deleteById = function (req, res) {
+exports.deleteHost = function (req, res) {
 	var id = req.params.id;
 	client.delete({
 		index: indexName,
@@ -40,10 +40,11 @@ exports.deleteById = function (req, res) {
 
 exports.addHost = function (req, res) {
 	var newHost = req.body;
+	var id = req.params.id;
 	client.create({
 		index: indexName,
 		type: typeName,
-		id: newHost.name,
+		id: id,
 		body: newHost.hostDetail
 	}).then(function success(response) {
 				res.json(response);
@@ -56,10 +57,11 @@ exports.addHost = function (req, res) {
 
 exports.updateHost = function (req, res) {
 	var hostToIndex = req.body;
+	var id = req.params.id;
 	client.index({
 		index: indexName,
 		type: typeName,
-		id: hostToIndex.name,
+		id: id,
 		body: hostToIndex
 	}).then(function success(response) {
 				res.json(response);

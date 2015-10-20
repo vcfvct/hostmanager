@@ -10,7 +10,7 @@
 	}]);
 
 
-	hostManager.controller('hostManagerCtrl', ['$scope', '$http', function ($scope, $http) {
+	hostManager.controller('hostManagerCtrl', ['$scope', '$http', '$uibModal', function ($scope, $http, $uibModal) {
 		var baseUrl = '/api/';
 
 		$scope.checkBoxClicked = function (clickedServer) {
@@ -26,7 +26,7 @@
 
 		$scope.refresh = function () {
 			clearState();
-			$http.get(baseUrl + 'host/all').then(
+			$http.get(baseUrl + 'hosts').then(
 					function success(res) {
 						$scope.searchResult = res.data;
 						if ($scope.searchResult && $scope.searchResult.total > 0) {
@@ -82,18 +82,29 @@
 			var oldTags = $scope.selectedServer.tags;
 			$scope.selectedServer.tags = tagsToSave;
 			$http({
-				method: 'PUT', url: '/api/host', headers: {'Content-Type': 'application/json'}, data: $scope.selectedServer
+				method: 'PUT', url: '/api/host/' + $scope.selectedServer.name, headers: {'Content-Type': 'application/json'}, data: $scope.selectedServer
 			}).then(function sunccess(response) {
-				alert(JSON.stringify(response));
+				modalAlert(JSON.stringify(response));
 				$scope.cancelEdit();
-				console.log(JSON.stringify(oldTags));
 			}, function error(err){
-				alert(JSON.stringify(err));
+				modalAlert(JSON.stringify(err));
 				//resume the old tags in case update fails.
 				$scope.selectedServer.tags = oldTags;
 				$scope.cancelEdit();
 			});
 		};
+
+		function modalAlert(msg){
+			$uibModal.open({
+				templateUrl: 'alertModalContent.html',
+				controller: 'ModalInstanceCtrl',
+				resolve: {
+					request: function () {
+						return {"message":msg};
+					}
+				}
+			});
+		}
 
 		$scope.deleteTag = function (key) {
 			$scope.tagsHolder = $scope.tagsHolder.filter(function (tag) {

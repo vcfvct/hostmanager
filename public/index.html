@@ -13,7 +13,9 @@
 <body>
 
 <nav class="navbar navbar-default">
+
     <div class="container-fluid center-div">
+        <img src="images/logo_small.png" style="float:left; margin-right: 300px"/>
         <div class="navbar-header">
             <!--this part is for repsonsive so that in mobile view we have the collpased menu-->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hostmanager-navbar">
@@ -32,13 +34,13 @@
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: isActive('/hostManager')}">
                     <a href="#/hostManager">
-                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
                         Host Manager
                     </a>
                 </li>
                 <li ng-class="{ active: isActive('/createHost')}">
                     <a href="#/createHost">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
                         Create Host
                     </a>
                 </li>
@@ -56,6 +58,22 @@
     </div>
 </div>
 
+
+<!--modal alert snippet-->
+<script type="text/ng-template" id="alertModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Messsage</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div>Message</div>
+            <div><pre>{{ request.message }}</pre></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</script>
 
 <!-- Javascript
 ================================================== -->

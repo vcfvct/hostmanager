@@ -10,9 +10,8 @@ var app = express();
 var port = process.env.NODE_JS_PORT || '3000';
 var ipaddress = process.env.THIS_IP || '127.0.0.1';
 
-//We need a function which handles requests and send response
-app.use(express.static(__dirname + '/public'));
 app.use(favicon('./public/images/favicon.ico'));
+// we are specifying the html directory as another public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // for parsing application/json
@@ -20,10 +19,22 @@ app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/host/all', restImpl.all);
-app.delete('/api/host/:id', restImpl.deleteById);
-app.post('/api/host', restImpl.addHost);
-app.put('/api/host', restImpl.updateHost);
+
+//index page
+app.get('/', function (req, res) {
+   res.sendfile(__dirname + '/public/index.html')
+});
+
+
+var router = express.Router();
+// let middleware comes in for path handler checking
+app.use('/', router);
+/*REST urls*/
+router.get('/api/hosts', restImpl.all);
+router.route('/api/host/:id')
+        .delete(restImpl.deleteHost)
+        .post(restImpl.addHost)
+        .put( restImpl.updateHost);
 
 //Lets start our server
 app.listen(port, ipaddress, function () {

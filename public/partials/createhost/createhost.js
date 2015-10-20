@@ -26,13 +26,13 @@
 				modalInstance.result.then(function () {
 					$scope.$emit('LOAD');
 					$http({
-						method: 'POST', url: '/api/host', headers: {'Content-Type': 'application/json'}, data: $scope.newHost
+						method: 'POST', url: '/api/host/' + $scope.newHost.name, headers: {'Content-Type': 'application/json'}, data: $scope.newHost
 					}).success(function (response) {
 						$scope.$emit('UNLOAD');
-						alert(JSON.stringify(response));
+						modalAlert(JSON.stringify(response));
 					}).error(function (err) {
 						$scope.$emit('UNLOAD');
-						alert(JSON.stringify(err));
+						modalAlert(JSON.stringify(err));
 					});
 				}, function () {
 					//dismiss: do nothing for now
@@ -40,5 +40,18 @@
 				});
 			}
 		};
+
+		function modalAlert(msg){
+			$uibModal.open({
+				templateUrl: 'alertModalContent.html',
+				controller: 'ModalInstanceCtrl',
+				resolve: {
+					request: function () {
+						return {"message":msg};
+					}
+				}
+			});
+		}
+
 	}]);
 }());

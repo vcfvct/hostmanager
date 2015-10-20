@@ -160,3 +160,25 @@ input[type="checkbox"].checkbox:checked + label:before {
     outline: none;
 }
 /**********************end of spinner style*********************/
+
+
+
+/*****************************************************************/
+/**********         begin of JSON prettier style           *****/
+/*****************************************************************/
+pre {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+    margin: 20px;
+}
+.json-key {
+    color: brown;
+}
+.json-value {
+    color: navy;
+}
+.json-string {
+    color: olive;
+}
+/**********************end of spinner style*********************/
