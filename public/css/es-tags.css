@@ -1,7 +1,9 @@
 .center-div {
-    margin: 50px auto;
+    margin: 20px auto;
     max-width: 1200px;
 }
+
+
 /*****************************************************************/
 /**********         begin of custom checkbox style           *****/
 /*****************************************************************/
@@ -27,3 +29,134 @@ input[type="checkbox"].checkbox:checked + label:before {
     content: "\f046";
 }
 /**********************end of custom checkbox style*********************/
+
+
+
+/*****************************************************************/
+/**********         begin of Nav Bar style           *****/
+/*****************************************************************/
+/*hover effect*/
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #025aa2 !important;
+    color: #ffffff !important;
+}
+
+/*some tiny transitions for nav*/
+.navbar-default .navbar-nav>li>a {
+    -webkit-transition: all ease .3s;
+    -moz-transition: all ease .3s;
+    -o-transition: all ease .3s;
+    transition: all ease .3s;
+}
+/**********************end of Nav Bar style*********************/
+
+
+/*****************************************************************/
+/**********         begin of Spinner style           *****/
+/*****************************************************************/
+#spinner {
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes rotateThis {
+    from {
+        -webkit-transform: scale(0.5) rotate(0deg);
+    }
+    to {
+        -webkit-transform: scale(0.5) rotate(360deg);
+    }
+}
+
+/* position the spinner-bars and balls correctly (rotate them and translate them outward)*/
+.spinner-bar1 {
+    -moz-transform: rotate(0deg) translate(0, -40px);
+    -webkit-transform: rotate(0deg) translate(0, -40px);
+    opacity: 0.12;
+}
+
+.spinner-bar2 {
+    -moz-transform: rotate(45deg) translate(0, -40px);
+    -webkit-transform: rotate(45deg) translate(0, -40px);
+    opacity: 0.25;
+}
+
+.spinner-bar3 {
+    -moz-transform: rotate(90deg) translate(0, -40px);
+    -webkit-transform: rotate(90deg) translate(0, -40px);
+    opacity: 0.37;
+}
+
+.spinner-bar4 {
+    -moz-transform: rotate(135deg) translate(0, -40px);
+    -webkit-transform: rotate(135deg) translate(0, -40px);
+    opacity: 0.50;
+}
+
+.spinner-bar5 {
+    -moz-transform: rotate(180deg) translate(0, -40px);
+    -webkit-transform: rotate(180deg) translate(0, -40px);
+    opacity: 0.62;
+}
+
+.spinner-bar6 {
+    -moz-transform: rotate(225deg) translate(0, -40px);
+    -webkit-transform: rotate(225deg) translate(0, -40px);
+    opacity: 0.75;
+}
+
+.spinner-bar7 {
+    -moz-transform: rotate(270deg) translate(0, -40px);
+    -webkit-transform: rotate(270deg) translate(0, -40px);
+    opacity: 0.87;
+}
+
+.spinner-bar8 {
+    -moz-transform: rotate(315deg) translate(0, -40px);
+    -webkit-transform: rotate(315deg) translate(0, -40px);
+    opacity: 1;
+}
+
+/* set up the three bar spinners */
+#spinner {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 25px;
+    -moz-border-radius: 100px;
+    float: left;
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+
+    /* not used right now: */
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+#spinner div {
+    width: 10px;
+    height: 30px;
+    background: #000;
+    position: absolute;
+    top: 35px;
+    left: 45px;
+}
+
+/* rounded outer corners for the second */
+#spinner div {
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+#pleaseWaitDialog {
+    top: 50%;
+    left: 45%;
+    outline: none;
+}
+/**********************end of spinner style*********************/
