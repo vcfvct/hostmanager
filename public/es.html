@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='esTag'>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8"/>
+    <title>Elastic Search Integration</title>
+    <meta name="description" content="Elastic Search Integration"/>
+    <!-- Styles -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="css/es-tags.css" rel="stylesheet"/>
+    <!--    <link href="css/bootstrap-responsive.css" rel="stylesheet">-->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller='esTagCtrl'>
+<div class="row center-div ng-cloak">
+    <div class="col-sm-3">
+        <div id="formContainer" style="margin-top:20px; padding:30px" class=" panel panel-default">
+            <label ng-repeat='server in servers track by $index'>
+                <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
+                <label for="server{{$index}}"></label>
+                <span>{{server._source.Name}}</span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div>
+            <h2>Server Details</h2>
+            <hr/>
+            <div ng-show="selectedServer.Name">
+                <div style='margin:30px'>
+                    <span>Name: <b>{{selectedServer.Name}}</b></span>
+                    <button class="btn btn-danger pull-right" ng-click='deleteServer()'>Delete This Server</button>
+                </div>
+                <uib-tabset justified="true">
+                    <uib-tab heading="Internal Info">
+                        <table class="table table-hover table-bordered table-striped">
+                            <tr>
+                                <td>CPU</td>
+                                <td>{{selectedServer.internalInfo.CPU}}</td>
+                            </tr>
+                            <tr>
+                                <td>memory</td>
+                                <td>{{selectedServer.internalInfo.memory}}</td>
+                            </tr>
+                            <tr>
+                                <td>OS type</td>
+                                <td>{{selectedServer.internalInfo['OS type']}}</td>
+                            </tr>
+                            <tr>
+                                <td>OS version</td>
+                                <td>{{selectedServer.internalInfo['OS version']}}</td>
+                            </tr>
+                            <tr>
+                                <td>kernel</td>
+                                <td>{{selectedServer.internalInfo.kernel}}</td>
+                            </tr>
+                            <tr>
+                                <td>fs type</td>
+                                <td>{{selectedServer.internalInfo['fs type']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Cluster type</td>
+                                <td>{{selectedServer.internalInfo['Cluster type']}}</td>
+                            </tr>
+
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Tags">
+                        <H4>Tags</H4>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    <!-- Javascript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.2/ui-bootstrap-tpls.js"></script>
+    <script src="js/es.js"></script>
+</body>
+</html>

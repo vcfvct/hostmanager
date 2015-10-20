@@ -1,0 +1,29 @@
+.center-div {
+    margin: 50px auto;
+    max-width: 1200px;
+}
+/*****************************************************************/
+/**********         begin of custom checkbox style           *****/
+/*****************************************************************/
+input[type="checkbox"].checkbox {
+    display: none;
+}
+
+input[type="checkbox"].checkbox + label {
+    margin: 0 0 0 10px;
+
+}
+
+/*empty checkbox style(icon) */
+input[type="checkbox"].checkbox + label:before {
+    font-family: FontAwesome;
+    content: "\f096";
+    font-size: 1.8em;
+}
+
+/*checked checkbox style(icon)*/
+input[type="checkbox"].checkbox:checked + label:before {
+    font-family: FontAwesome;
+    content: "\f046";
+}
+/**********************end of custom checkbox style*********************/
