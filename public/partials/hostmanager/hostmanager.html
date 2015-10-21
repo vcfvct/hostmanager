@@ -1,12 +1,25 @@
 <div class="row ng-cloak">
     <div class="col-sm-3">
-        <div id="formContainer" style="margin-top:20px; padding:30px" class=" panel panel-default">
-            <label ng-repeat='server in servers track by $index'>
+        <div class="panel panel-default" id="formContainer" style="margin-top:20px; padding:30px">
+            <div class="form-group">
+                <label for="serverFilter">Server Name</label>
+                <input id="serverFilter" placeholder="Enter Server Name" ng-model="serverNameFilter" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="numberPerPage">Number Per Page</label>
+                <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
+            </div>
+            <!--The order of pipes matters! itemsPerPage should go last-->
+            <label dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index">
                 <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
                 <label for="server{{$index}}"></label>
-                <span>{{server._source.name}}</span>
+                <span>{{ server._source.name }}</span>
             </label>
         </div>
+        <div class="text-center">
+            <dir-pagination-controls boundary-links="true" max-size="5" direction-links="true"></dir-pagination-controls>
+        </div>
+
     </div>
     <div class="col-sm-9">
         <div>
@@ -23,6 +36,7 @@
                     <uib-tab heading="Tags">
                         <div style="margin: 30px;">
                             <span><b>Tags</b></span>
+
                             <div class="pull-right" ng-show="!editingTags">
                                 <button class="btn btn-primary" ng-click="editTags()">Edit Tags</button>
                             </div>
@@ -43,8 +57,10 @@
                         <table class="table table-hover table-bordered table-striped" ng-show="editingTags">
                             <tr ng-repeat="tag in tagsHolder">
                                 <td><input value="{{tag.key}}" ng-model="tag.key"/></td>
-                                <td><input value="{{tag.value}}" ng-model="tag.value" /></td>
-                                <td><button class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</button></td>
+                                <td><input value="{{tag.value}}" ng-model="tag.value"/></td>
+                                <td>
+                                    <button class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</button>
+                                </td>
                             </tr>
                         </table>
                     </uib-tab>

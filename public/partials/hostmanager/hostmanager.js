@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	var hostManager = angular.module('HostManager', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives']);
+	var hostManager = angular.module('HostManager', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives', 'angularUtils.directives.dirPagination']);
 
 	hostManager.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/hostManager', {
@@ -33,11 +33,11 @@
 							$scope.servers = $scope.searchResult.hits;
 						}
 						else {
-							$scope.servers = {};
+							$scope.servers = [];
 						}
 					},
 					function error() {
-						$scope.servers = {};
+						$scope.servers = [];
 					});
 		};
 
@@ -112,6 +112,12 @@
 			});
 		};
 
+		$scope.doFilter = function (server) {
+			return server._source.name.indexOf($scope.serverNameFilter) >= 0;
+		};
+
 		$scope.refresh();
+		$scope.serverNameFilter = '';
+		$scope.numberPerPage = 10;
 	}]);
 }());

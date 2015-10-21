@@ -11,25 +11,35 @@ var client = new elasticsearch.Client({
 	apiversion: 2.1
 });
 
-exports.all = function (req, res) {
-	client.search({
+//get the basic elastic search request object
+function getBasicSearchRequest() {
+	return {
 		index: indexName,
 		type: typeName
-	}).then(function (response) {
-		res.json(response.hits);
-	}, function error(err) {
-		console.log(err);
-		res.json(err);
-	});
+	}
+}
+
+exports.all = function (req, res) {
+	var countRequest = getBasicSearchRequest();
+	client.count(countRequest)
+			.then(function (response) {
+				var searchRequest = getBasicSearchRequest();
+				searchRequest.size = response.count;
+				return client.search(searchRequest);
+			})
+			.then(function(response){
+				res.json(response.hits);
+			})
+			.catch(function error(err) {
+				console.log(err);
+				res.json(err);
+			});
 };
 
 exports.deleteHost = function (req, res) {
-	var id = req.params.id;
-	client.delete({
-		index: indexName,
-		type: typeName,
-		id: id
-	}).then(function (response) {
+	var deleteRequest = getBasicSearchRequest();
+	deleteRequest.id = req.params.id;
+	client.delete(deleteRequest).then(function (response) {
 				res.json(response);
 			}, function error(err) {
 				console.log(err);
@@ -39,14 +49,10 @@ exports.deleteHost = function (req, res) {
 };
 
 exports.addHost = function (req, res) {
-	var newHost = req.body;
-	var id = req.params.id;
-	client.create({
-		index: indexName,
-		type: typeName,
-		id: id,
-		body: newHost.hostDetail
-	}).then(function success(response) {
+	var addRequest = getBasicSearchRequest();
+	addRequest.id = req.params.id;
+	addRequest.body = req.body.hostDetail;
+	client.create(addRequest).then(function success(response) {
 				res.json(response);
 			}, function error(err) {
 				console.log(err);
@@ -56,14 +62,10 @@ exports.addHost = function (req, res) {
 };
 
 exports.updateHost = function (req, res) {
-	var hostToIndex = req.body;
-	var id = req.params.id;
-	client.index({
-		index: indexName,
-		type: typeName,
-		id: id,
-		body: hostToIndex
-	}).then(function success(response) {
+	var updateRequest = getBasicSearchRequest();
+	updateRequest.id = req.params.id;
+	updateRequest.body = req.body;
+	client.index(updateRequest).then(function success(response) {
 				res.json(response);
 			}, function error(err) {
 				console.log(err);

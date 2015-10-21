@@ -1,18 +1,48 @@
 <div>
-    <div id="formContainer" style="margin-top:20px; padding:30px" class=" panel panel-default">
-        <form id="newHostForm" name="newHostForm">
-            <div class="form-group required">
-                <label for="hostname" class="control-label">Host Name</label>
-                <input id="hostname" name="hostname" type="text" ng-model="newHost.name" placeholder="Host Name"
-                       class="form-control " required/>
-            </div>
-            <div class="form-group required">
-                <label for="hostDetail" class="control-label">Host Content</label>
+    <div id="formContainer" style="margin-top:20px; padding:30px" class="row panel panel-default">
+        <div class="col-md-7">
+            <form id="newHostForm" name="newHostForm">
+                <div class="form-group required">
+                    <label for="hostname" class="control-label">Host Name</label>
+                    <input id="hostname" name="hostname" type="text" ng-model="newHost.name" placeholder="Host Name"
+                           class="form-control" required/>
+                </div>
+                <div class="form-group required">
+                    <label for="hostDetail" class="control-label">Host Content</label>
                 <textarea id="hostDetail" name="hostDetail" ng-model="newHost.hostDetail" class="form-control" placeholder="Host Detail (JSON)"
-                          required style="height: 300px;"></textarea>
-            </div>
-            <button id="add-host" ng-click="addHost()" class="btn btn-primary">Submit</button>
-        </form>
+                          required style="height: 500px;"></textarea>
+                </div>
+                <button id="add-host" ng-click="addHost()" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-5">
+           <div class="panel panel-default" style="padding: 15px;">
+               <label>The Host-Name will be used as key in storage. It must be unique!</label>
+               <hr/>
+               <label>The Host-Content should look something like</label>
+               <pre>
+{
+    "name": "kwalxorclp03b",
+    "tags": {
+        "CostCenter": "CLD9998",
+        "AGS": "ETS",
+        "Owner": "Bob Cordes",
+        "Purpose": "Oracle database",
+        "Role": "Oracle"
+    },
+    "internalInfo": {
+        "CPU": 61,
+        "memory": "256G",
+        "OS type": "Ubuntu",
+        "OS version": "5.8",
+        "kernel": "2.6.18",
+        "fs type": "vxfs",
+        "Cluster type": "VCS"
+    }
+}
+               </pre>
+           </div>
+        </div>
     </div>
 
     <script type="text/ng-template" id="confirmModalContent.html">
