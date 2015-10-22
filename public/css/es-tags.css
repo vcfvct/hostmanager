@@ -182,3 +182,16 @@ pre {
     color: olive;
 }
 /**********************end of spinner style*********************/
+
+
+.host-name-list .host-name{
+    cursor: pointer;
+    color: #222930;
+    font-size: 20px;
+}
+
+.host-name-list:hover , .host-name-list .host-name:hover{
+    background-color: #4EB1BA;
+    color: #E9E9E9;
+    text-decoration: none;
+}

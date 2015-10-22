@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
-	var hostManager = angular.module('HostManager', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives', 'FinraHostsService', 'angularUtils.directives.dirPagination']);
+	var hostManager = angular.module('HostManager',
+			['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives', 'FinraHostsService', 'angularUtils.directives.dirPagination']);
 
 	hostManager.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/hostManager', {
@@ -11,14 +12,33 @@
 
 
 	hostManager.controller('hostManagerCtrl', ['$scope', '$http', '$uibModal', 'finraHostService', function ($scope, $http, $uibModal, finraHostService) {
-		$scope.checkBoxClicked = function (clickedServer) {
+		$scope.serverNameClicked = function (clickedServer) {
 			clearState();
+			$scope.selectedServers.push(clickedServer._source);
+			$scope.selectedServer = clickedServer._source;
+			angular.forEach($scope.servers, function (server) {
+				server.selected = false;
+			});
+			clickedServer.selected = true;
+		};
+
+		$scope.checkBoxClicked = function (clickedServer) {
+			//select
 			if (clickedServer.selected) {
-				$scope.selectedServer = clickedServer._source;
-				angular.forEach($scope.servers, function (server) {
-					server.selected = false;
-				});
-				clickedServer.selected = true;
+				$scope.selectedServers.push(clickedServer._source);
+				if ($scope.selectedServers.length == 1) {
+					$scope.selectedServer = clickedServer._source;
+				}
+			}
+			//un-select
+			else {
+				if($scope.selectedServers.length == 1){
+					clearState();
+				}else{
+					$scope.selectedServers = $scope.selectedServers.filter(function (server) {
+						  return server.name !== clickedServer._source.name;
+					});
+				}
 			}
 		};
 
@@ -43,6 +63,7 @@
 		};
 
 		var clearState = function () {
+			$scope.selectedServers = [];
 			$scope.selectedServer = {};
 			$scope.editingTags = false;
 		};
@@ -60,7 +81,7 @@
 						clearState();
 						modalAlert(response);
 					},
-					function err(err){
+					function err(err) {
 						modalAlert(err);
 					}
 			);
@@ -132,7 +153,9 @@
 			$scope.refresh();
 			$scope.serverNameFilter = '';
 			$scope.numberPerPage = 10;
+			$scope.selectedServers = [];
 		}
+
 		init();
 	}]);
 }());

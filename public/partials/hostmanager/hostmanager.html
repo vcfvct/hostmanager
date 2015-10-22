@@ -10,11 +10,13 @@
                 <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
             </div>
             <!--The order of pipes matters! itemsPerPage should go last-->
-            <label dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index">
-                <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
-                <label for="server{{$index}}"></label>
-                <span>{{ server._source.name }}</span>
-            </label>
+            <div dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index" class="host-name-list">
+                <span >
+                    <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
+                    <label for="server{{$index}}"></label>
+                </span>
+                <a class="host-name" ng-click="serverNameClicked(server)">{{ server._source.name }}</a>
+            </div>
         </div>
         <div class="text-center">
             <dir-pagination-controls boundary-links="true" max-size="5" direction-links="true"></dir-pagination-controls>
@@ -22,7 +24,7 @@
 
     </div>
     <div class="col-sm-9">
-        <div>
+        <div id="single-server" ng-show="selectedServers.length <= 1">
             <h2>Server Details</h2>
             <hr/>
             <div ng-show="selectedServer.name">
@@ -104,6 +106,15 @@
                     </uib-tab>
                 </uib-tabset>
             </div>
+        </div>
+        <div id="multi-server" ng-show="selectedServers.length > 1">
+            <h2>Selected Servers</h2>
+
+            <table class="table table-hover table-bordered table-striped">
+                <tr ng-repeat="server in selectedServers">
+                    <td>{{server.name}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
