@@ -48,21 +48,26 @@
                             </div>
 
                         </div>
-                        <table class="table table-hover table-bordered table-striped" ng-show="!editingTags">
-                            <tr ng-repeat="(key, value) in selectedServer.tags">
-                                <td>{{key}}</td>
-                                <td>{{value}}</td>
-                            </tr>
-                        </table>
-                        <table class="table table-hover table-bordered table-striped" ng-show="editingTags">
-                            <tr ng-repeat="tag in tagsHolder">
-                                <td><input value="{{tag.key}}" ng-model="tag.key"/></td>
-                                <td><input value="{{tag.value}}" ng-model="tag.value"/></td>
-                                <td>
-                                    <button class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</button>
-                                </td>
-                            </tr>
-                        </table>
+                        <div id="static-tags"  ng-show="!editingTags">
+                            <table class="table table-hover table-bordered table-striped">
+                                <tr ng-repeat="(key, value) in selectedServer.tags">
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="editing-tags"  ng-show="editingTags">
+                            <table class="table table-hover table-bordered table-striped">
+                                <tr ng-repeat="tag in tagsHolder">
+                                    <td><input value="{{tag.key}}" ng-model="tag.key"/></td>
+                                    <td><input value="{{tag.value}}" ng-model="tag.value"/></td>
+                                    <td>
+                                        <button class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</button>
+                        </div>
                     </uib-tab>
                     <uib-tab heading="Internal Info">
                         <table class="table table-hover table-bordered table-striped">

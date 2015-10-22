@@ -59,7 +59,7 @@
 </div>
 
 
-<!--modal alert snippet-->
+<!--modal alert snippet which out-->
 <script type="text/ng-template" id="alertModalContent.html">
     <div class="modal-header">
         <h3 class="modal-title">Messsage</h3>
@@ -67,7 +67,7 @@
     <div class="modal-body">
         <div>
             <div>Message</div>
-            <div><pre>{{ request.message }}</pre></div>
+            <div><pre>{{ request.message | json}}</pre></div>
         </div>
     </div>
     <div class="modal-footer">
@@ -87,6 +87,7 @@
 <script src="js/lib/dirPagination.js"></script>
 <script src="js/finrahostapp.js"></script>
 <script src="js/sharedControllers.js"></script>
+<script src="js/finrahostsservice.js"></script>
 <script src="partials/hostmanager/hostmanager.js"></script>
 <script src="partials/createhost/createhost.js"></script>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

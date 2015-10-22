@@ -51,7 +51,7 @@ exports.deleteHost = function (req, res) {
 exports.addHost = function (req, res) {
 	var addRequest = getBasicSearchRequest();
 	addRequest.id = req.params.id;
-	addRequest.body = req.body.hostDetail;
+	addRequest.body = req.body;
 	client.create(addRequest).then(function success(response) {
 				res.json(response);
 			}, function error(err) {

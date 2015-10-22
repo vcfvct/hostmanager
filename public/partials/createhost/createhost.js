@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	var hostManager = angular.module('CreateHost', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives']);
+	var hostManager = angular.module('CreateHost', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives', 'FinraHostsService']);
 
 	hostManager.config(['$routeProvider', function ($routeProvider) {
 		$routeProvider.when('/createHost', {
@@ -10,30 +10,30 @@
 	}]);
 
 
-	hostManager.controller('createHostCtrl', ['$scope', '$http', '$uibModal', function ($scope, $http, $uibModal) {
+	hostManager.controller('createHostCtrl', ['$scope', '$http', '$uibModal', 'finraHostService', function ($scope, $http, $uibModal, finraHostService) {
 		$scope.addHost = function () {
 			if ($scope.newHostForm.$valid) {
-
+				$scope.newHostName = JSON.parse($scope.newHostJson).name;
 				var modalInstance = $uibModal.open({
 					templateUrl: 'confirmModalContent.html',
 					controller: 'ModalInstanceCtrl',
 					resolve: {
 						request: function () {
-							return $scope.newHost;
+							return {"name": $scope.newHostName, "hostDetail": $scope.newHostJson};
 						}
 					}
 				});
 				modalInstance.result.then(function () {
 					$scope.$emit('LOAD');
-					$http({
-						method: 'POST', url: '/api/host/' + $scope.newHost.name, headers: {'Content-Type': 'application/json'}, data: $scope.newHost
-					}).success(function (response) {
-						$scope.$emit('UNLOAD');
-						modalAlert(JSON.stringify(response));
-					}).error(function (err) {
-						$scope.$emit('UNLOAD');
-						modalAlert(JSON.stringify(err));
-					});
+					finraHostService.addHost($scope.newHostName, $scope.newHostJson).then(
+							function success(response) {
+								$scope.$emit('UNLOAD');
+								modalAlert(response.data);
+							},
+							function error(err) {
+								$scope.$emit('UNLOAD');
+								modalAlert(err);
+							});
 				}, function () {
 					//dismiss: do nothing for now
 					console.log('Modal dismissed at: ' + new Date());
@@ -41,13 +41,13 @@
 			}
 		};
 
-		function modalAlert(msg){
+		function modalAlert(msg) {
 			$uibModal.open({
 				templateUrl: 'alertModalContent.html',
 				controller: 'ModalInstanceCtrl',
 				resolve: {
 					request: function () {
-						return {"message":msg};
+						return {"message": msg};
 					}
 				}
 			});
