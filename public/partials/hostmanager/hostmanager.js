@@ -32,11 +32,12 @@
 			}
 			//un-select
 			else {
-				if($scope.selectedServers.length == 1){
+				if ($scope.selectedServers.length == 1) {
 					clearState();
-				}else{
+				}
+				else {
 					$scope.selectedServers = $scope.selectedServers.filter(function (server) {
-						  return server.name !== clickedServer._source.name;
+						return server.name !== clickedServer._source.name;
 					});
 				}
 			}
@@ -149,11 +150,25 @@
 			$scope.tagsHolder.push({"key": "", "value": ""});
 		};
 
+		$scope.searchContent = function () {
+			if ($scope.serverContentSearch == '') {
+				$scope.refresh();
+			}
+			else {
+				finraHostService.queryStringSearch($scope.serverContentSearch).then(
+						function success(res) {
+							clearState();
+							$scope.servers = res.data.hits;
+						});
+			}
+		};
+
 		function init() {
 			$scope.refresh();
 			$scope.serverNameFilter = '';
 			$scope.numberPerPage = 10;
 			$scope.selectedServers = [];
+			$scope.serverContentSearch = '';
 		}
 
 		init();

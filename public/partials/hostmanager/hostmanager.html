@@ -2,7 +2,7 @@
     <div class="col-sm-3">
         <div class="panel panel-default" id="formContainer" style="margin-top:20px; padding:30px">
             <div class="form-group">
-                <label for="serverFilter">Server Name</label>
+                <label for="serverFilter">Server Name Filter</label>
                 <input id="serverFilter" placeholder="Enter Server Name" ng-model="serverNameFilter" class="form-control"/>
             </div>
             <div class="form-group">
@@ -10,8 +10,9 @@
                 <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
             </div>
             <!--The order of pipes matters! itemsPerPage should go last-->
-            <div dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index" class="host-name-list">
-                <span >
+            <div dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
+                 class="host-name-list">
+                <span>
                     <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
                     <label for="server{{$index}}"></label>
                 </span>
@@ -24,6 +25,17 @@
 
     </div>
     <div class="col-sm-9">
+        <form class="form" style="margin-top: 20px;">
+            <div class="input-group ">
+                <input id="server-search" placeholder="Enter Server Info/Tags to search" ng-model="serverContentSearch" class="form-control"  tooltip-trigger="focus"
+                       uib-tooltip="You can search plain string. Or you can use lucene syntax like: (tags.AGS:RC AND tags.Role:Oracle) OR tags.Owner:Bill"/>
+                 <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="searchContent()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size: 20px"></span>
+                    </button>
+                 </span>
+            </div>
+        </form>
         <div id="single-server" ng-show="selectedServers.length <= 1">
             <h2>Server Details</h2>
             <hr/>
@@ -50,7 +62,7 @@
                             </div>
 
                         </div>
-                        <div id="static-tags"  ng-show="!editingTags">
+                        <div id="static-tags" ng-show="!editingTags">
                             <table class="table table-hover table-bordered table-striped">
                                 <tr ng-repeat="(key, value) in selectedServer.tags">
                                     <td>{{key}}</td>
@@ -58,7 +70,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div id="editing-tags"  ng-show="editingTags">
+                        <div id="editing-tags" ng-show="editingTags">
                             <table class="table table-hover table-bordered table-striped">
                                 <tr ng-repeat="tag in tagsHolder">
                                     <td><input value="{{tag.key}}" ng-model="tag.key"/></td>
@@ -73,35 +85,10 @@
                     </uib-tab>
                     <uib-tab heading="Internal Info">
                         <table class="table table-hover table-bordered table-striped">
-                            <tr>
-                                <td>CPU</td>
-                                <td>{{selectedServer.internalInfo.CPU}}</td>
+                            <tr ng-repeat="(key, value) in selectedServer.internalInfo">
+                                <td>{{key}}</td>
+                                <td>{{value}}</td>
                             </tr>
-                            <tr>
-                                <td>memory</td>
-                                <td>{{selectedServer.internalInfo.memory}}</td>
-                            </tr>
-                            <tr>
-                                <td>OS type</td>
-                                <td>{{selectedServer.internalInfo['OS type']}}</td>
-                            </tr>
-                            <tr>
-                                <td>OS version</td>
-                                <td>{{selectedServer.internalInfo['OS version']}}</td>
-                            </tr>
-                            <tr>
-                                <td>kernel</td>
-                                <td>{{selectedServer.internalInfo.kernel}}</td>
-                            </tr>
-                            <tr>
-                                <td>fs type</td>
-                                <td>{{selectedServer.internalInfo['fs type']}}</td>
-                            </tr>
-                            <tr>
-                                <td>Cluster type</td>
-                                <td>{{selectedServer.internalInfo['Cluster type']}}</td>
-                            </tr>
-
                         </table>
                     </uib-tab>
                 </uib-tabset>

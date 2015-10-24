@@ -29,5 +29,10 @@
 				method: 'POST', url: baseUrl + 'host/' + serverName, headers: {'Content-Type': 'application/json'}, data: serverData
 			});
 		};
+
+		this.queryStringSearch = function (searchString) {
+			var searchRequest = {query: {query_string: {query: searchString}}};
+			return $http({url: baseUrl + 'queryStringSearch', method: "POST", headers: {'Content-Type': 'application/json'}, data: searchRequest})
+		}
 	}]);
 })();

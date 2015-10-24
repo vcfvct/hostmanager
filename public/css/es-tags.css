@@ -1,6 +1,32 @@
+/** custom styles **/
+.host-name-list .host-name{
+    cursor: pointer;
+    color: #222930;
+    font-size: 20px;
+
+    -webkit-transition: all ease .3s;
+    -moz-transition: all ease .3s;
+    -o-transition: all ease .3s;
+    transition: all ease .3s;
+}
+
+.host-name-list:hover , .host-name-list .host-name:hover{
+    background-color: #4EB1BA;
+    color: #E9E9E9;
+    text-decoration: none;
+}
+
 .center-div {
     margin: 20px auto;
     max-width: 1200px;
+}
+
+/*json prettier*/
+pre {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+    margin: 20px;
 }
 
 
@@ -160,38 +186,3 @@ input[type="checkbox"].checkbox:checked + label:before {
     outline: none;
 }
 /**********************end of spinner style*********************/
-
-
-
-/*****************************************************************/
-/**********         begin of JSON prettier style           *****/
-/*****************************************************************/
-pre {
-    background-color: ghostwhite;
-    border: 1px solid silver;
-    padding: 10px 20px;
-    margin: 20px;
-}
-.json-key {
-    color: brown;
-}
-.json-value {
-    color: navy;
-}
-.json-string {
-    color: olive;
-}
-/**********************end of spinner style*********************/
-
-
-.host-name-list .host-name{
-    cursor: pointer;
-    color: #222930;
-    font-size: 20px;
-}
-
-.host-name-list:hover , .host-name-list .host-name:hover{
-    background-color: #4EB1BA;
-    color: #E9E9E9;
-    text-decoration: none;
-}

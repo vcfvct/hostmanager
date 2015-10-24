@@ -35,6 +35,7 @@ router.route('/api/host/:id')
         .delete(restImpl.deleteHost)
         .post(restImpl.addHost)
         .put( restImpl.updateHost);
+router.post('/api/queryStringSearch', restImpl.queryStringSearch);
 
 //Lets start our server
 app.listen(port, ipaddress, function () {
