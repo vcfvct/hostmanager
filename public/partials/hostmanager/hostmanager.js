@@ -111,7 +111,7 @@
 			var oldTags = $scope.selectedServer.tags;
 			$scope.selectedServer.tags = tagsToSave;
 			$scope.$emit('LOAD');
-			finraHostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function sunccess(response) {
+			finraHostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function success(response) {
 				$scope.$emit('UNLOAD');
 				modalAlert(response);
 				$scope.cancelEdit();
