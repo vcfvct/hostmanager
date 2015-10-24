@@ -155,10 +155,14 @@
 				$scope.refresh();
 			}
 			else {
+				$scope.$emit('UNLOAD');
 				finraHostService.queryStringSearch($scope.serverContentSearch).then(
 						function success(res) {
+							$scope.$emit('UNLOAD');
 							clearState();
 							$scope.servers = res.data.hits;
+						},function error() {
+							$scope.$emit('UNLOAD');
 						});
 			}
 		};
