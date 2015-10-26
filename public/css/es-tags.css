@@ -52,15 +52,15 @@ input[type="checkbox"].checkbox + label {
 
 /*empty checkbox style(icon) */
 input[type="checkbox"].checkbox + label:before {
-    font-family: FontAwesome;
-    content: "\f096";
-    font-size: 1.8em;
+    font-family: Glyphicons Halflings;
+    content: "\e157";
+    font-size: 1.6em;
 }
 
 /*checked checkbox style(icon)*/
 input[type="checkbox"].checkbox:checked + label:before {
-    font-family: FontAwesome;
-    content: "\f046";
+    font-family: Glyphicons Halflings;
+    content: "\e067";
 }
 /**********************end of custom checkbox style*********************/
 
