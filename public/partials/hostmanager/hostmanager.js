@@ -148,6 +148,7 @@
 			});
 		};
 
+		//fitler server name
 		$scope.doFilter = function (server) {
 			return server._source.name.indexOf($scope.serverNameFilter) >= 0;
 		};
