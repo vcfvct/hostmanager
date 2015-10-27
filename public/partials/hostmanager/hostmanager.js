@@ -80,6 +80,9 @@
 							return server._source.name !== $scope.selectedServer.name;
 						});
 						clearState();
+						if(response.config){
+							delete response.config;
+						}
 						modalAlert(response);
 					},
 					function err(err) {
@@ -113,6 +116,9 @@
 			$scope.$emit('LOAD');
 			finraHostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function success(response) {
 				$scope.$emit('UNLOAD');
+				if(response.config){
+					delete response.config;
+				}
 				modalAlert(response);
 				$scope.cancelEdit();
 			}, function error(err) {
