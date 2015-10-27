@@ -4,10 +4,11 @@ var indexName = 'finratags';
 var typeName = 'host';
 //by default put dev
 var esHost = process.env.THIS_IP || '10.162.64.189';
+var esPort = process.env.ES_PORT || '9200';
 var esCredential = process.env.ES_CREDENTIAL || 'es_admin:es_admin123@';
 
 var client = new elasticsearch.Client({
-	host: esCredential + esHost + ':9200',
+	host: esCredential + esHost + ':' + esPort,
 	log: 'trace',
 	apiversion: 2.1
 });
