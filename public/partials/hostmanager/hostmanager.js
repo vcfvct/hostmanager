@@ -85,7 +85,7 @@
 						}
 						modalAlert(response);
 					},
-					function err(err) {
+					function error(err) {
 						modalAlert(err);
 					}
 			);
