@@ -1,20 +1,75 @@
 <div>
-    <div id="formContainer" style="margin-top:20px; padding:30px" class="row panel panel-default">
-        <div class="col-md-7">
-            <form id="newHostForm" name="newHostForm">
-                <div class="form-group required">
-                    <label for="hostDetail" class="control-label">Host Content</label>
-                <textarea id="hostDetail" name="hostDetail" ng-model="newHostJson" class="form-control" placeholder="Host Detail (JSON)"
-                          required style="height: 500px;"></textarea>
+    <uib-tabset justified="true">
+        <uib-tab heading="Create By Form">
+            <div style="margin-top:20px; padding:30px" class="row panel panel-default">
+                <div class="col-md-7">
+                    <form id="newHostFieldForm" name="forms.newHostFieldForm" style="margin: 30px;">
+                        <div class="form-group required">
+                            <label for="hostname" class="control-label">Host Name</label>
+                            <input id="hostname" name="hostname" type="text" ng-model="newFieldHost.name"
+                                   placeholder="Host Name"
+                                   class="form-control" required/>
+                        </div>
+                        <p class="h4" style="margin: 30px 0;">
+                            Tags
+                            <a class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</a>
+                        </p>
+                        <table class="table table-hover table-bordered table-striped">
+                            <tr ng-repeat="tag in tagsHolder">
+                                <td><input value="{{tag.key}}" ng-model="tag.key" required/></td>
+                                <td><input value="{{tag.value}}" ng-model="tag.value" required/></td>
+                                <td>
+                                    <a class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <p class="h4" style="margin: 30px 0;">
+                            Internal Info
+                            <a class="btn btn-info pull-right" ng-click="addOneInfo()">Add A Info</a>
+                        </p>
+                        <table class="table table-hover table-bordered table-striped">
+                            <tr ng-repeat="newInfo in internalInfoHolder">
+                                <td><input value="{{newInfo.key}}" ng-model="newInfo.key" required/></td>
+                                <td><input value="{{newInfo.value}}" ng-model="newInfo.value" required/></td>
+                                <td>
+                                    <a class="btn btn-default" ng-click="deleteInfo(newInfo.key)">Delete Info</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <button id="add-host-form" ng-click="addFormHost()" class="btn btn-primary pull-right">Submit</button>
+                    </form>
                 </div>
-                <button id="add-host" ng-click="addHost()" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        <div class="col-md-5">
-           <div class="panel panel-default" style="padding: 15px;">
-               <label class="bg-info">The 'name' field will be used as key in storage. It must be unique!</label>
-               <hr/>
-               <label>The Host-Content should look something like</label>
+                <div class="col-md-5">
+                    <div class="panel panel-default" style="padding: 15px;">
+                        <label class="bg-info">The 'name' field will be used as key in storage. It must be
+                            unique!</label>
+                        <hr/>
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+
+        </uib-tab>
+        <!--Tab 2 for form 'Create By JSON'-->
+        <uib-tab heading="Create By JSON">
+            <div id="formContainer" style="margin-top:20px; padding:30px" class="row panel panel-default">
+                <div class="col-md-7">
+                    <form id="newHostForm" name="forms.newHostForm">
+                        <div class="form-group required">
+                            <label for="hostDetail" class="control-label">Host Content</label>
+                            <textarea id="hostDetail" name="hostDetail" ng-model="newHostJson" class="form-control"
+                                      placeholder="Host Detail (JSON)" required style="height: 500px;"></textarea>
+                        </div>
+                        <button id="add-host" ng-click="addHost(newHostJson)" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <div class="panel panel-default" style="padding: 15px;">
+                        <label class="bg-info">The 'name' field will be used as key in storage. It must be
+                            unique!</label>
+                        <hr/>
+                        <label>The Host-Content should look something like</label>
                <pre>
 {
     "name": "kwalxorclp03b",
@@ -36,9 +91,12 @@
     }
 }
                </pre>
-           </div>
-        </div>
-    </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+
 
     <script type="text/ng-template" id="confirmModalContent.html">
         <div class="modal-header">
@@ -49,7 +107,7 @@
 
             <div>
                 <div>Host Details</div>
-                <pre>{{ request.hostDetail}}</pre>
+                <pre>{{ request.hostDetail | json}}</pre>
             </div>
         </div>
         <div class="modal-footer">
