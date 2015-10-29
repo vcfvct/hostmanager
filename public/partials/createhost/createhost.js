@@ -71,6 +71,7 @@
 			});
 		}
 
+        // add host by form
         $scope.addFormHost = function () {
             if ($scope.forms.newHostFieldForm.$valid) {
                 try {
@@ -116,23 +117,23 @@
         };
 
         $scope.deleteTag = function (key) {
-            $scope.newFieldHost.tags = $scope.newFieldHost.tags.filter(function (tag) {
+            $scope.tagsHolder = $scope.tagsHolder.filter(function (tag) {
                 return tag.key !== key;
             });
         };
 
         $scope.deleteInfo = function (key) {
-            $scope.newFieldHost.internalInfo = $scope.newFieldHost.internalInfo.filter(function (info) {
+            $scope.internalInfoHolder = $scope.internalInfoHolder.filter(function (info) {
                 return info.key !== key;
             });
         };
 
         $scope.addOneTag = function () {
-            $scope.newFieldHost.tags.push({"key": "", "value": ""});
+            $scope.tagsHolder.push({"key": "", "value": ""});
         };
 
         $scope.addOneInfo = function () {
-            $scope.newFieldHost.internalInfo.push({"key": "", "value": ""});
+            $scope.internalInfoHolder.push({"key": "", "value": ""});
         };
 
 	}]);
