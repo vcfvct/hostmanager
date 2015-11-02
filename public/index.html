@@ -9,48 +9,67 @@
     <link href="css/es-tags.css" rel="stylesheet"/>
 
 </head>
-<body>
+<body ng-controller="ParentCtrl">
 
-<nav class="navbar navbar-default">
-
-    <div class="container-fluid center-div">
-        <img src="images/logo_small.png" style="float:left; margin-right: 300px"/>
-        <div class="navbar-header">
-            <!--this part is for repsonsive so that in mobile view we have the collpased menu-->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hostmanager-navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            </a>
+<!--this controller is for the active menu(highlight selected)-->
+<nav class="navbar navbar-default ng-cloak" ng-controller="HeaderController" >
+    <div class="row center-div">
+        <div class="col-md-2">
+            <img src="images/logo_small.png"/>
         </div>
-        <!--this controller is for the active menu(highlight selected)-->
-        <div ng-controller="HeaderController" class="collapse navbar-collapse" id="hostmanager-navbar">
-            <ul class="nav navbar-nav">
-                <li ng-class="{ active: isActive('/hostManager')}">
-                    <a href="#/hostManager">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                        Host Manager
+
+        <div class="container-fluid col-md-8">
+                <div class="navbar-header">
+                    <!--this part is for repsonsive so that in mobile view we have the collpased menu-->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#hostmanager-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                     </a>
-                </li>
-                <li ng-class="{ active: isActive('/createHost')}">
-                    <a href="#/createHost">
-                        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
-                        Create Host
-                    </a>
-                </li>
-            </ul>
+                </div>
+                <div class="collapse navbar-collapse" id="hostmanager-navbar">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{ active: isActive('/hostManager')}">
+                            <a href="#/hostManager">
+                                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                                Host Manager
+                            </a>
+                        </li>
+                        <li ng-class="{ active: isActive('/createHost')}" ng-if="userData">
+                            <a href="#/createHost">
+                                <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+                                Create Host
+                            </a>
+                        </li>
+                        <li ng-class="{ active: isActive('/createUser')}" ng-if="userData">
+                            <a href="#/createUser">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                Create User
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-default" href="#/login" ng-if="!userData">Login</a>
+            <div ng-if="userData">
+                <span>Welcome <a href=""> {{userData.userId}}</a> </span>
+                <a class="btn btn-default" ng-click="logout()">Logout</a>
+            </div>
         </div>
     </div>
 </nav>
 
 <div class="center-div" style="min-height: 600px;">
     <!--this controller is for eventing-->
-    <div ng-controller="ParentCtrl">
+    <div>
         <loading-bar visible="loading"></loading-bar>
 
         <div ng-view class="view-frame"></div>
@@ -66,7 +85,9 @@
     <div class="modal-body">
         <div>
             <div>Message</div>
-            <div><pre>{{ request.message | json}}</pre></div>
+            <div>
+                <pre>{{ request.message | json}}</pre>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
@@ -89,6 +110,8 @@
 <script src="js/finrahostsservice.js"></script>
 <script src="partials/hostmanager/hostmanager.js"></script>
 <script src="partials/createhost/createhost.js"></script>
+<script src="partials/createuser/createuser.js"></script>
+<script src="partials/login/login.js"></script>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

@@ -10,7 +10,7 @@
 	}]);
 
 
-	hostManager.controller('createHostCtrl', ['$scope', '$http', '$uibModal', 'finraHostService', function ($scope, $http, $uibModal, finraHostService) {
+	hostManager.controller('createHostCtrl', ['$scope', '$http', '$uibModal', 'HostService', function ($scope, $http, $uibModal, HostService) {
         (function () {
             //Note, angularUI bootstrap TAB creates its own transclude scope so the form name cannot be referenced directly thru $scope.formName.
             //we make a formObject here so that when we defined forms.formName, it could be referenced in parent($scope)
@@ -37,7 +37,7 @@
 					});
 					modalInstance.result.then(function () {
 						$scope.$emit('LOAD');
-						finraHostService.addHost($scope.newHostName, newHostJson).then(
+                        HostService.addHost($scope.newHostName, newHostJson).then(
 								function success(response) {
 									$scope.$emit('UNLOAD');
 									if (response.config) {
@@ -47,6 +47,12 @@
 								},
 								function error(err) {
 									$scope.$emit('UNLOAD');
+                                    if (err.config) {
+                                        delete err.config;
+                                    }
+                                    if(err.data && err.data.length > 100){
+                                        err.data = err.data.substring(0,97) + '...';
+                                    }
 									modalAlert(err);
 								});
 					}, function () {
@@ -94,7 +100,7 @@
                     });
                     modalInstance.result.then(function () {
                         $scope.$emit('LOAD');
-                        finraHostService.addHost($scope.newFieldHost.name, JSON.stringify($scope.newFieldHost)).then(
+                        HostService.addHost($scope.newFieldHost.name, JSON.stringify($scope.newFieldHost)).then(
                             function success(response) {
                                 $scope.$emit('UNLOAD');
                                 if (response.config) {

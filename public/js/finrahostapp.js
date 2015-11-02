@@ -1,11 +1,15 @@
 (function () {
 	'use strict';
-	var admin = angular.module('FinraHostsApp',
-			['ui.bootstrap', 'ngRoute', 'FinraHostsDirectives' ,'sharedControllers', 'HostManager','CreateHost']);
+	var FinraHostsApp = angular.module('FinraHostsApp',
+			['ui.bootstrap', 'ngRoute', 'FinraHostsDirectives' ,'sharedControllers', 'HostManager','CreateHost', 'LoginModule', 'CreateUser']);
 
-	admin.config(['$routeProvider', function ($routeProvider) {
+	FinraHostsApp.config(['$routeProvider', function ($routeProvider) {
 		'use strict';
 		$routeProvider.
 				otherwise({redirectTo: 'hostManager'});
 	}]);
+
+	FinraHostsApp.config(function ($httpProvider) {
+		$httpProvider.interceptors.push('TokenInterceptor');
+	});
 })();

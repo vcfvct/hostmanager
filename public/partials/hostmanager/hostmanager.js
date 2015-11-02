@@ -11,7 +11,7 @@
 	}]);
 
 
-	hostManager.controller('hostManagerCtrl', ['$scope', '$http', '$uibModal', 'finraHostService', function ($scope, $http, $uibModal, finraHostService) {
+	hostManager.controller('hostManagerCtrl', ['$scope', '$http', '$uibModal', 'HostService', function ($scope, $http, $uibModal, HostService) {
 		$scope.serverNameClicked = function (clickedServer) {
 			clearState();
 			$scope.selectedServers.push(clickedServer._source);
@@ -46,7 +46,7 @@
 		$scope.refresh = function () {
 			$scope.$emit('LOAD');
 			clearState();
-			finraHostService.getAllHosts().then(
+			HostService.getAllHosts().then(
 					function success(res) {
 						$scope.$emit('UNLOAD');
 						$scope.searchResult = res.data;
@@ -71,7 +71,7 @@
 
 		$scope.deleteServer = function () {
 			$scope.$emit('LOAD');
-			finraHostService.deleteHost($scope.selectedServer.name).
+			HostService.deleteHost($scope.selectedServer.name).
 					then(
 					function success(response) {
 						$scope.$emit('UNLOAD');
@@ -86,6 +86,13 @@
 						modalAlert(response);
 					},
 					function error(err) {
+						$scope.$emit('UNLOAD');
+						if (err.config) {
+							delete err.config;
+						}
+						if(err.data && err.data.length > 100){
+							err.data = err.data.substring(0,97) + '...';
+						}
 						modalAlert(err);
 					}
 			);
@@ -114,7 +121,7 @@
 			var oldTags = $scope.selectedServer.tags;
 			$scope.selectedServer.tags = tagsToSave;
 			$scope.$emit('LOAD');
-			finraHostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function success(response) {
+			HostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function success(response) {
 				$scope.$emit('UNLOAD');
 				if(response.config){
 					delete response.config;
@@ -123,6 +130,12 @@
 				$scope.cancelEdit();
 			}, function error(err) {
 				$scope.$emit('UNLOAD');
+				if (err.config) {
+					delete err.config;
+				}
+				if(err.data && err.data.length > 100){
+					err.data = err.data.substring(0,97) + '...';
+				}
 				modalAlert(err);
 				//resume the old tags in case update fails.
 				$scope.selectedServer.tags = oldTags;
@@ -163,7 +176,7 @@
 			}
 			else {
 				$scope.$emit('UNLOAD');
-				finraHostService.queryStringSearch($scope.serverContentSearch).then(
+				HostService.queryStringSearch($scope.serverContentSearch).then(
 						function success(res) {
 							$scope.$emit('UNLOAD');
 							clearState();

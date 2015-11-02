@@ -1,8 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var restImpl = require('./rest/restImpl');
+var hostRestController = require('./rest/hostRestController');
+var userRestController = require('./rest/userRestController');
 var favicon = require('serve-favicon');
+var jwt = require('express-jwt');
+var secret = process.env.HOSTMANAGER_JWT_SECRET || require('./config/secret').secretToken;
 
 var app = express();
 
@@ -25,17 +28,25 @@ app.get('/', function (req, res) {
    res.sendfile(__dirname + '/public/index.html')
 });
 
+app.use(
+    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts']})
+);
 
 var router = express.Router();
 // let middleware comes in for path handler checking
 app.use('/', router);
 /*REST urls*/
-router.get('/api/hosts', restImpl.all);
+router.get('/api/hosts', hostRestController.all);
 router.route('/api/host/:id')
-        .delete(restImpl.deleteHost)
-        .post(restImpl.addHost)
-        .put( restImpl.updateHost);
-router.post('/api/queryStringSearch', restImpl.queryStringSearch);
+        .delete(hostRestController.deleteHost)
+        .post(hostRestController.addHost)
+        .put( hostRestController.updateHost);
+router.post('/api/queryStringSearch', hostRestController.queryStringSearch);
+//user login
+router.post('/api/login', userRestController.login);
+router.route('/api/user/:userId')
+    .post(userRestController.addUser)
+    .get(userRestController.getUser);
 
 //Lets start our server
 app.listen(port, ipaddress, function () {
