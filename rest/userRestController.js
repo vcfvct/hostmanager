@@ -1,6 +1,6 @@
 var elasticsearch = require('./../config/elasticSearchConfig');
 var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 var secret = process.env.HOSTMANAGER_JWT_SECRET || require('../config/secret').secretToken;
 
