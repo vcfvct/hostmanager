@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 
 // login, show all hosts, search api does not need auth.
 // If we have a lot more such urls in future, we could place the middleware to the endpoints which need auth
-app.use(
+app.use('/api',
     jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch']})
 );
 
