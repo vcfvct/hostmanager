@@ -28,8 +28,10 @@ app.get('/', function (req, res) {
    res.sendfile(__dirname + '/public/index.html')
 });
 
+// login, show all hosts, search api does not need auth.
+// If we have a lot more such urls in future, we could place the middleware to the endpoints which need auth
 app.use(
-    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts']})
+    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch']})
 );
 
 var router = express.Router();
