@@ -41,13 +41,13 @@
                                 Host Manager
                             </a>
                         </li>
-                        <li ng-class="{ active: isActive('/createHost')}" ng-if="userData">
+                        <li ng-class="{ active: isActive('/createHost')}" ng-if="appUserData">
                             <a href="#/createHost">
                                 <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
                                 Create Host
                             </a>
                         </li>
-                        <li ng-class="{ active: isActive('/createUser')}" ng-if="userData">
+                        <li ng-class="{ active: isActive('/createUser')}" ng-if="appUserData">
                             <a href="#/createUser">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                 Create User
@@ -58,9 +58,9 @@
         </div>
 
         <div class="col-md-2">
-            <a class="btn btn-default" href="#/login" ng-if="!userData">Login</a>
-            <div ng-if="userData">
-                <span>Welcome <a href=""> {{userData.userId}}</a> </span>
+            <a class="btn btn-default" href="#/login" ng-if="!appUserData">Login</a>
+            <div ng-if="appUserData">
+                <span>Welcome <a href=""> {{appUserData.userId}}</a> </span>
                 <a class="btn btn-default" ng-click="logout()">Logout</a>
             </div>
         </div>

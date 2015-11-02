@@ -18,15 +18,15 @@
 
         //when login, we put the info into the browser's session storage
 		$scope.$on('UserLogin', function (event, data) {
-			$scope.userData = data.userData;
+			$scope.appUserData = data.userData;
 			$scope.token = data.token;
 
-			$window.sessionStorage.hostmanagerUserId = $scope.userData.userId;
+			$window.sessionStorage.hostmanagerUserId = $scope.appUserData.userId;
 			$window.sessionStorage.hostmanagerAuthToken = $scope.token ;
 		});
 
 		$scope.$on('UserLogout', function () {
-			delete $scope.userData;
+			delete $scope.appUserData;
 			delete $scope.token;
 
 			delete $window.sessionStorage.hostmanagerAuthToken;
@@ -37,7 +37,7 @@
 		if($window.sessionStorage.hostmanagerAuthToken){
 			$scope.token = $window.sessionStorage.hostmanagerAuthToken;
 			UserService.findUserById($window.sessionStorage.hostmanagerUserId).then(function(res){
-				 $scope.userData = res.data;
+				 $scope.appUserData = res.data;
 			});
 		}
 	}]);

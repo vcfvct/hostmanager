@@ -42,7 +42,8 @@
             <div ng-show="selectedServer.name">
                 <div style='margin:30px'>
                     <span>Name: <b>{{selectedServer.name}}</b></span>
-                    <button class="btn btn-danger pull-right" confirm-click='deleteServer()' confirm-message="Delete This Server?">
+                    <!--show when appUserData presents in the parent controller-->
+                    <button class="btn btn-danger pull-right" confirm-click='deleteServer()' confirm-message="Delete This Server?" ng-if="appUserData">
                         Delete This Server
                     </button>
                 </div>
@@ -50,8 +51,8 @@
                     <uib-tab heading="Tags">
                         <div style="margin: 30px;">
                             <span><b>Tags</b></span>
-
-                            <div class="pull-right" ng-show="!editingTags">
+                            <!--show when not editing AND appUserData presents in the parent controller-->
+                            <div class="pull-right" ng-show="!editingTags && appUserData">
                                 <button class="btn btn-primary" ng-click="editTags()">Edit Tags</button>
                             </div>
                             <div class="pull-right" ng-show="editingTags" style="margin-left: 10px;">
