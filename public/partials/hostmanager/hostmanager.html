@@ -40,12 +40,14 @@
             <h2>Server Details</h2>
             <hr/>
             <div ng-show="selectedServer.name">
-                <div style='margin:30px'>
-                    <span>Name: <b>{{selectedServer.name}}</b></span>
+                <div style='margin:30px' class="row">
+                    <div class="col-md-9">Name: <b>{{selectedServer.name}}</b></div>
                     <!--show when appUserData presents in the parent controller-->
-                    <button class="btn btn-danger pull-right" confirm-click='deleteServer()' confirm-message="Delete This Server?" ng-if="appUserData">
-                        Delete This Server
-                    </button>
+                    <div class="col-md-3">
+                        <button class="btn btn-danger" confirm-click='deleteServer()' confirm-message="Delete This Server?" ng-if="appUserData">
+                            Delete This Server
+                        </button>
+                    </div>
                 </div>
                 <uib-tabset justified="true">
                     <uib-tab heading="Tags">
@@ -56,7 +58,7 @@
                                 <button class="btn btn-primary" ng-click="editTags()">Edit Tags</button>
                             </div>
                             <div class="pull-right" ng-show="editingTags" style="margin-left: 10px;">
-                                <button class="btn btn-default" ng-click="cancelEdit()">Cancel</button>
+                                <button class="btn btn-default btn-raised" ng-click="cancelEdit()">Cancel</button>
                             </div>
                             <div class="pull-right" ng-show="editingTags" style="margin-left: 10px;">
                                 <button class="btn btn-success" ng-click="saveTags()">Save Tags</button>
@@ -72,12 +74,12 @@
                             </table>
                         </div>
                         <div id="editing-tags" ng-show="editingTags">
-                            <table class="table table-hover table-bordered table-striped">
+                            <table class="table table-hover table-bordered table-striped editable-table" >
                                 <tr ng-repeat="tag in tagsHolder">
-                                    <td><input value="{{tag.key}}" ng-model="tag.key"/></td>
-                                    <td><input value="{{tag.value}}" ng-model="tag.value"/></td>
-                                    <td>
-                                        <button class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</button>
+                                    <td class="col-md-4"><input value="{{tag.key}}" ng-model="tag.key" class="form-control"/></td>
+                                    <td class="col-md-4"><input value="{{tag.value}}" ng-model="tag.value" class="form-control"/></td>
+                                    <td class="col-md-2">
+                                        <button class="btn btn-default btn-raised" ng-click="deleteTag(tag.key)">Delete Tag</button>
                                     </td>
                                 </tr>
                             </table>

@@ -37,6 +37,16 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
 }
 
+table.editable-table tr td{
+    vertical-align: bottom;
+}
+
+.nav-tabs>li.active{
+    background-color: #00695c;
+    color: rgba(255,255,255,.84);
+    font-weight: bold!important;
+}
+
 
 /*****************************************************************/
 /**********         begin of custom checkbox style           *****/

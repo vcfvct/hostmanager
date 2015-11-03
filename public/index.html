@@ -6,6 +6,7 @@
     <meta name="description" content="Elastic Search Integration"/>
     <!-- Styles -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css" rel="stylesheet"/>
     <link href="css/es-tags.css" rel="stylesheet"/>
 
 </head>
@@ -58,10 +59,10 @@
         </div>
 
         <div class="col-md-2">
-            <a class="btn btn-default" href="#/login" ng-if="!appUserData">Login</a>
+            <a class="btn btn-default btn-raised" href="#/login" ng-if="!appUserData">Login</a>
             <div ng-if="appUserData">
-                <span>Welcome <a href=""> {{appUserData.userId}}</a> </span>
-                <a class="btn btn-default" ng-click="logout()">Logout</a>
+                <span>Welcome  {{appUserData.userId}}</span>
+                <a class="btn btn-default btn-raised" ng-click="logout()" style="color:white;">Logout</a>
             </div>
         </div>
     </div>

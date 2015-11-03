@@ -2,7 +2,7 @@
     <uib-tabset justified="true">
         <uib-tab heading="Create By Form">
             <div style="margin-top:20px; padding:30px" class="row panel panel-default">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <form id="newHostFieldForm" name="forms.newHostFieldForm" style="margin: 30px;">
                         <div class="form-group required">
                             <label for="hostname" class="control-label">Host Name</label>
@@ -14,12 +14,12 @@
                             Tags
                             <a class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</a>
                         </p>
-                        <table class="table table-hover table-bordered table-striped">
+                        <table class="table table-hover table-bordered table-striped editable-table">
                             <tr ng-repeat="tag in tagsHolder">
-                                <td><input value="{{tag.key}}" ng-model="tag.key" required/></td>
-                                <td><input value="{{tag.value}}" ng-model="tag.value" required/></td>
-                                <td>
-                                    <a class="btn btn-default" ng-click="deleteTag(tag.key)">Delete Tag</a>
+                                <td><input value="{{tag.key}}" ng-model="tag.key" required class="form-control col-md-4"/></td>
+                                <td><input value="{{tag.value}}" ng-model="tag.value" required class="form-control col-md-4"/></td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-default btn-raised" ng-click="deleteTag(tag.key)" style="margin: 0;">Delete Tag</a>
                                 </td>
                             </tr>
                         </table>
@@ -28,19 +28,19 @@
                             Internal Info
                             <a class="btn btn-info pull-right" ng-click="addOneInfo()">Add A Info</a>
                         </p>
-                        <table class="table table-hover table-bordered table-striped">
+                        <table class="table table-hover table-bordered table-striped editable-table">
                             <tr ng-repeat="newInfo in internalInfoHolder">
-                                <td><input value="{{newInfo.key}}" ng-model="newInfo.key" required/></td>
-                                <td><input value="{{newInfo.value}}" ng-model="newInfo.value" required/></td>
-                                <td>
-                                    <a class="btn btn-default" ng-click="deleteInfo(newInfo.key)">Delete Info</a>
+                                <td><input value="{{newInfo.key}}" ng-model="newInfo.key" class="form-control col-md-4" required/></td>
+                                <td><input value="{{newInfo.value}}" ng-model="newInfo.value" class="form-control col-md-4" required/></td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-default btn-raised" ng-click="deleteInfo(newInfo.key)" style="margin: 0;">Delete Info</a>
                                 </td>
                             </tr>
                         </table>
                         <button id="add-host-form" ng-click="addFormHost()" class="btn btn-primary pull-right">Submit</button>
                     </form>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="panel panel-default" style="padding: 15px;">
                         <label class="bg-info">The 'name' field will be used as key in storage. It must be
                             unique!</label>

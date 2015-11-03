@@ -65,7 +65,7 @@ exports.addUser = function (req, res) {
             });
         });
     }else{
-        res.send('"error":"Password cannot be empty"')
+        res.send('{"error":"Password cannot be empty"}')
     }
 
 };
