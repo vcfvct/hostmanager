@@ -19,7 +19,7 @@
                                 <td><input value="{{tag.key}}" ng-model="tag.key" required class="form-control col-md-4"/></td>
                                 <td><input value="{{tag.value}}" ng-model="tag.value" required class="form-control col-md-4"/></td>
                                 <td class="col-md-2">
-                                    <a class="btn btn-default btn-raised" ng-click="deleteTag(tag.key)" style="margin: 0;">Delete Tag</a>
+                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="deleteTag(tag.key)">Delete Tag</a>
                                 </td>
                             </tr>
                         </table>
@@ -33,7 +33,7 @@
                                 <td><input value="{{newInfo.key}}" ng-model="newInfo.key" class="form-control col-md-4" required/></td>
                                 <td><input value="{{newInfo.value}}" ng-model="newInfo.value" class="form-control col-md-4" required/></td>
                                 <td class="col-md-2">
-                                    <a class="btn btn-default btn-raised" ng-click="deleteInfo(newInfo.key)" style="margin: 0;">Delete Info</a>
+                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="deleteInfo(newInfo.key)" >Delete Info</a>
                                 </td>
                             </tr>
                         </table>

@@ -47,6 +47,10 @@ table.editable-table tr td{
     font-weight: bold!important;
 }
 
+.cell-delete-button{
+    margin: 0;
+}
+
 
 /*****************************************************************/
 /**********         begin of custom checkbox style           *****/
