@@ -37,20 +37,74 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
 }
 
+/*align input to the bottom of the table*/
 table.editable-table tr td{
     vertical-align: bottom;
 }
-
+/*for active tab, we add some color to differentiate*/
 .nav-tabs>li.active{
     background-color: #00695c;
     color: rgba(255,255,255,.84);
     font-weight: bold!important;
 }
-
+/*reduce unnecessary the table size*/
 .cell-delete-button{
     margin: 0;
 }
 
+/*Start of sticky footer styles*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #dededb;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    padding: 1.5em 0 3em;
+}
+
+
+.fn-tag-line {
+    display: block;
+    float: left;
+    font-size: .9em;
+    padding-left: .5em;
+    padding-right: 50px;
+}
+.fn-footer-links, .fn-links-social, .fn-tag-line {
+    display: block;
+    float: left;
+    font-size: .9em;
+}
+
+.fn-links-social {
+    float: right;
+}
+.fn-links-social a {
+    padding: 10px;
+}
+
+.fn-footer-links a:link, .fn-footer-links a:visited {
+    border-right: 1px solid #999;
+    color: #025191;
+    padding: 0 .6em 0 .4em;
+    text-decoration: none;
+}
+.fn-footer-links a:link.fn-last, .fn-footer-links a:visited.fn-last {
+    border-right: 0 none;
+    padding-right: 0;
+}
+/*End of sticky footer styles*/
 
 /*****************************************************************/
 /**********         begin of custom checkbox style           *****/
