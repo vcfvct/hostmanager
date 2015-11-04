@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-md-2">
-            <a class="btn btn-default btn-raised" href="#/login" ng-if="!appUserData">Login</a>
+            <a class="btn btn-default btn-raised" href="#/login" ng-if="!appUserData" style="color:white;">Login</a>
             <div ng-if="appUserData">
                 <span>Welcome  {{appUserData.userId}}</span>
                 <a class="btn btn-default btn-raised" ng-click="logout()" style="color:white;">Logout</a>
