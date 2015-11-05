@@ -7,8 +7,7 @@
                         <div class="form-group required">
                             <label for="hostname" class="control-label">Host Name</label>
                             <input id="hostname" name="hostname" type="text" ng-model="newFieldHost.name"
-                                   placeholder="Host Name"
-                                   class="form-control" required/>
+                                   placeholder="Host Name" class="form-control" required focus-on-load/>
                         </div>
                         <p class="h4" style="margin: 30px 0;">
                             Tags
@@ -59,7 +58,7 @@
                         <div class="form-group required">
                             <label for="hostDetail" class="control-label">Host Content</label>
                             <textarea id="hostDetail" name="hostDetail" ng-model="newHostJson" class="form-control"
-                                      placeholder="Host Detail (JSON)" required style="height: 500px;"></textarea>
+                                      placeholder="Host Detail (JSON)" required style="height: 500px;" focus-on-load></textarea>
                         </div>
                         <button id="add-host" ng-click="addHost(newHostJson)" class="btn btn-primary">Submit</button>
                     </form>

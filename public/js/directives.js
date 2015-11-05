@@ -85,4 +85,19 @@
 		};
 	});
 
+	/**
+	 * a simple directive enables focus a field on page load.
+	 */
+	directives.directive('focusOnLoad', ['$timeout', function($timeout) {
+		return {
+			restrict: 'AC',
+			link: function(_scope, _element) {
+				//delay to the next cycle for execution
+				$timeout(function(){
+					_element[0].focus();
+				});
+			}
+		};
+	}]);
+
 })();
