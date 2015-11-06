@@ -5,13 +5,14 @@ var hostRestController = require('./rest/hostRestController');
 var userRestController = require('./rest/userRestController');
 var favicon = require('serve-favicon');
 var jwt = require('express-jwt');
-var secret = process.env.HOSTMANAGER_JWT_SECRET || require('./config/secret').secretToken;
+var config = require('./config/varConfig');
+var secret = config.secretToken;
 
 var app = express();
 
 //Lets define a port we want to listen to
-var port = process.env.NODE_JS_PORT || '3000';
-var ipaddress = process.env.THIS_IP || '127.0.0.1';
+var port = config.express.port
+var ip = config.express.ip;
 
 app.use(favicon('./public/images/favicon.ico'));
 // we are specifying the html directory as another public directory
@@ -51,6 +52,6 @@ router.route('/api/user/:userId')
     .get(userRestController.getUser);
 
 //Lets start our server
-app.listen(port, ipaddress, function () {
+app.listen(port, ip, function () {
     console.log('Express server listening on port: ' + port);
 });

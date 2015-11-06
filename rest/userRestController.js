@@ -1,8 +1,9 @@
 var elasticsearch = require('./../config/elasticSearchConfig');
+var config = require('./../config/varConfig');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
-var secret = process.env.HOSTMANAGER_JWT_SECRET || require('../config/secret').secretToken;
+var secret = config.secretToken;
 
 var client = elasticsearch.esClient;
 var indexName = 'finratags';
