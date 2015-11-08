@@ -22,11 +22,13 @@
         <div class="text-center">
             <dir-pagination-controls boundary-links="true" max-size="5" direction-links="true"></dir-pagination-controls>
         </div>
+        <hr/>
         <div>
             <a ng-click="selectAll()" class="btn btn-success btn-raised">Select All Servers</a>
         </div>
         <div>
-            <a ng-click="saveCsv()" class="btn btn-primary btn-raised">Download CSV</a>
+            <a confirm-click="saveCsv()" confirm-message="Are you sure you want to download these server-tags as CSV ?"
+               class="btn btn-primary btn-raised">Download CSV</a>
         </div>
     </div>
     <div class="col-sm-9">

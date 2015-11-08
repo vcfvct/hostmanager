@@ -51,6 +51,10 @@ table.editable-table tr td{
 .cell-delete-button{
     margin: 0;
 }
+/*override bootstrap's default color #eee since the material design css uses #eee as background color.*/
+hr{
+    border-top: 1px solid #ccc;
+}
 
 /*Start of sticky footer styles*/
 html {

@@ -90,7 +90,7 @@ exports.login = function (req, res) {
                     }
                     if(isMatch){
                         delete userData.password;
-                        var token = jwt.sign(userData, secret, {expiresInMinutes: 60, issuer: 'HostManager', algorithm:'HS384'});
+                        var token = jwt.sign(userData, secret, {expiresIn: '60m', issuer: 'HostManager', algorithm:'HS384'});
                         res.json({userData: userData, token: token})
                     }
                 });
