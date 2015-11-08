@@ -8,10 +8,8 @@
 	'use strict';
 	var directives = angular.module('FinraHostsDirectives', ['ui.bootstrap']);
 
-	directives.directive('confirmClick', ['$uibModal',
-		function ($uibModal) {
-
-			var ModalInstanceCtrl = function ($scope, $modalInstance) {
+	directives.directive('confirmClick', ['$uibModal', function ($uibModal) {
+			var ModalInstanceCtrl = ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 				$scope.ok = function () {
 					$modalInstance.close();
 				};
@@ -19,7 +17,7 @@
 				$scope.cancel = function () {
 					$modalInstance.dismiss('cancel');
 				};
-			};
+			}];
 
 			return {
 				restrict: 'A',
