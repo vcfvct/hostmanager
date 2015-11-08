@@ -43,6 +43,14 @@
 			}
 		};
 
+		$scope.selectAll = function () {
+			$scope.selectedServers = [];
+			angular.forEach($scope.servers, function (server) {
+				server.selected = true;
+				$scope.selectedServers.push(server._source);
+			});
+		};
+
 		$scope.refresh = function () {
 			$scope.$emit('LOAD');
 			clearState();
@@ -187,12 +195,57 @@
 			}
 		};
 
+		// Thru jsperf, string concat has better performance than array join. x = x + "" has the best performance but looks not that elegant.
+		// https://jsperf.com/string-concat-vs-array-join-10000/15
+        $scope.saveCsv = function () {
+            if ($scope.selectedServers.length > 0) {
+				//first column is for server name
+				var resultCsv = 'Server Name,';
+				angular.forEach($scope.csvHeaders, function (header) {
+					resultCsv = resultCsv.concat(header).concat(',');
+				});
+				//remove the tailing comma and append line break.
+				resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat('\n');
+				// we get the lower cased headers from the predefined list
+				var lowerHeaders = $scope.csvHeaders.map(function (header) {
+					return header.toLowerCase();
+				});
+				//we generate the name:tags object where tags object contains lowercased-key and value pairs for original tags.
+				var lowerSelectedServers = {};
+				angular.forEach($scope.selectedServers, function (server) {
+					lowerSelectedServers[server.name] = {};
+					angular.forEach(server.tags, function(value, key){
+						lowerSelectedServers[server.name][key.toLowerCase()] = value;
+					});
+				});
+				// we now have BOTH required headers(tag names) and real tag key in lower case so we can compare ignore the case of tag key when output CSV.
+                angular.forEach($scope.selectedServers, function (server) {
+					//append server name
+					resultCsv = resultCsv.concat(server.name).concat(',');
+					var lowerTags = lowerSelectedServers[server.name];
+					angular.forEach(lowerHeaders, function (header) {
+						//if not present, we append a empty '' as place holder
+						resultCsv = resultCsv.concat(lowerTags[header] ? lowerTags[header] : '').concat(',');
+					});
+					//remove the tailing comma and append line break.
+					resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat('\n');
+                });
+				var blob = new Blob([resultCsv], {type: "text/csv;charset=utf-8"});
+				//user filesaver js to save blob and trigger user download. in Safari, user might have use cmd + s to save the file since it opens blob in a tab
+                saveAs(blob, 'servers.csv');
+            }else{
+				$.bootstrapGrowl("Select a server before Download", {type: 'danger'});
+			}
+        };
+
+
 		function init() {
 			$scope.refresh();
 			$scope.serverNameFilter = '';
 			$scope.numberPerPage = 10;
 			$scope.selectedServers = [];
 			$scope.serverContentSearch = '';
+			$scope.csvHeaders = ['AGS', 'CostCenter', 'Owner', 'Purpose', 'Role'];
 		}
 
 		init();
