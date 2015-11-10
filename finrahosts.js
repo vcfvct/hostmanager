@@ -11,7 +11,7 @@ var secret = config.secretToken;
 var app = express();
 
 //Lets define a port we want to listen to
-var port = config.express.port
+var port = config.express.port;
 var ip = config.express.ip;
 
 app.use(favicon('./public/images/favicon.ico'));
