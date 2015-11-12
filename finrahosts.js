@@ -12,7 +12,6 @@ var app = express();
 
 //Lets define a port we want to listen to
 var port = config.express.port;
-var ip = config.express.ip;
 
 app.use(favicon('./public/images/favicon.ico'));
 // we are specifying the html directory as another public directory
@@ -52,6 +51,6 @@ router.route('/api/user/:userId')
     .get(userRestController.getUser);
 
 //Lets start our server
-app.listen(port, ip, function () {
+app.listen(port, function () {
     console.log('Express server listening on port: ' + port);
 });
