@@ -1,16 +1,42 @@
 <div class="row ng-cloak">
     <div class="col-sm-3">
+        <div class="row" style="border-bottom: 1px solid #ddd;">
+            <div class="col-sm-4">
+                <div class="btn-group" uib-dropdown>
+                    <button id="split-button" type="button" class="btn btn-default" style="padding: 5px;">
+                <span>
+                    <input type="checkbox" ng-click="toggleSelectAll()" class="checkbox" id="selectAllCheckBox"
+                           ng-model="isSelectAll"/>
+                    <label for="selectAllCheckBox"></label>
+                </span>
+                    </button>
+                    <button type="button" class="btn btn-default" uib-dropdown-toggle
+                            style="padding-top: 16px; padding-bottom: 16px;">
+                        <span class="caret"></span>
+                        <span class="sr-only">Split button!</span>
+                    </button>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
+                        <li role="menuitem" ng-click="selectAll()"><a>All</a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem" ng-click="deselectAll()"><a>None</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-8" style="margin-left: -30px;">
+                <button class="btn btn-default btn-raised" confirm-click="saveCsv()" uib-tooltip="Download CSV"
+                        confirm-message="Are you sure you want to download these server-tags as CSV ?" style="padding: 13px">
+                    <i class="fa fa-download"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="panel panel-default" id="formContainer" style="margin-top:20px; padding:30px">
             <div class="form-group">
                 <label for="serverFilter">Server Name Filter</label>
                 <input id="serverFilter" placeholder="Enter Server Name" ng-model="serverNameFilter" class="form-control"/>
             </div>
-            <div class="form-group">
-                <label for="numberPerPage">Number Per Page</label>
-                <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
-            </div>
             <!--The order of pipes matters! itemsPerPage should go last-->
-            <div dir-paginate="server in servers | filter:serverNameFilter | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
+            <div dir-paginate="server in servers | filter:{_source: {name: serverNameFilter}} | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
                  class="host-name-list">
                 <span>
                     <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
@@ -18,17 +44,15 @@
                 </span>
                 <a class="host-name" ng-click="serverNameClicked(server)">{{ server._source.name }}</a>
             </div>
+            <div class="form-group row" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #ddd;">
+                <label for="numberPerPage" class="col-sm-8">Servers Per Page</label>
+                <div class=" col-sm-4">
+                    <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
+                </div>
+            </div>
         </div>
         <div class="text-center">
             <dir-pagination-controls boundary-links="true" max-size="5" direction-links="true"></dir-pagination-controls>
-        </div>
-        <hr/>
-        <div>
-            <a ng-click="selectAll()" class="btn btn-success btn-raised">Select All Servers</a>
-        </div>
-        <div>
-            <a confirm-click="saveCsv()" confirm-message="Are you sure you want to download these server-tags as CSV ?"
-               class="btn btn-primary btn-raised">Download CSV</a>
         </div>
     </div>
     <div class="col-sm-9">
@@ -106,7 +130,7 @@
             </div>
         </div>
         <div id="multi-server" ng-show="selectedServers.length > 1">
-            <h2>Selected Servers</h2>
+            <h2>Selected Servers ({{selectedServers.length}})</h2>
 
             <table class="table table-hover table-bordered table-striped">
                 <tr ng-repeat="server in selectedServers">

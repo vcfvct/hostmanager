@@ -42,14 +42,28 @@
 				}
 			}
 		};
-
-		$scope.selectAll = function () {
-			$scope.selectedServers = [];
-			angular.forEach($scope.servers, function (server) {
-				server.selected = true;
-				$scope.selectedServers.push(server._source);
-			});
-		};
+        //select all servers
+        $scope.selectAll = function () {
+            $scope.isSelectAll = true;
+            $scope.toggleSelectAll();
+        };
+        //de-select all servers.
+        $scope.deselectAll = function () {
+            $scope.isSelectAll = false;
+            $scope.toggleSelectAll();
+        };
+        //select/deselect all servers based on the selectAll checkbox(or the isSelectAll in the $scope) state
+        $scope.toggleSelectAll = function () {
+            $scope.selectedServers = [];
+            //clear the one selected server if so
+            $scope.selectedServer = {};
+            angular.forEach($scope.servers, function (server) {
+                server.selected = $scope.isSelectAll;
+                if ($scope.isSelectAll) {
+                    $scope.selectedServers.push(server._source);
+                }
+            });
+        };
 
 		$scope.refresh = function () {
 			$scope.$emit('LOAD');
@@ -75,6 +89,7 @@
 			$scope.selectedServers = [];
 			$scope.selectedServer = {};
 			$scope.editingTags = false;
+            $scope.isSelectAll = false;
 		};
 
 		$scope.deleteServer = function () {
