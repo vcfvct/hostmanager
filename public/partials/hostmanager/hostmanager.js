@@ -144,7 +144,7 @@
 			var oldTags = $scope.selectedServer.tags;
 			$scope.selectedServer.tags = tagsToSave;
 			$scope.$emit('LOAD');
-			HostService.updateHost($scope.selectedServer.name, $scope.selectedServer).then(function success(response) {
+			HostService.updateHost($scope.selectedServer).then(function success(response) {
 				$scope.$emit('UNLOAD');
 				if(response.config){
 					delete response.config;

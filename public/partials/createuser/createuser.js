@@ -27,7 +27,7 @@
 					});
 					modalInstance.result.then(function () {
 						$scope.$emit('LOAD');
-                        UserService.addUser(submittedUser.userId, newUserJson).then(
+                        UserService.addUser(submittedUser).then(
 								function success(response) {
 									$scope.$emit('UNLOAD');
 									if (response.config) {

@@ -37,7 +37,7 @@
 					});
 					modalInstance.result.then(function () {
 						$scope.$emit('LOAD');
-                        HostService.addHost($scope.newHostName, newHostJson).then(
+                        HostService.addHost(submittedHost).then(
 								function success(response) {
 									$scope.$emit('UNLOAD');
 									if (response.config) {
@@ -100,7 +100,7 @@
                     });
                     modalInstance.result.then(function () {
                         $scope.$emit('LOAD');
-                        HostService.addHost($scope.newFieldHost.name, JSON.stringify($scope.newFieldHost)).then(
+                        HostService.addHost($scope.newFieldHost).then(
                             function success(response) {
                                 $scope.$emit('UNLOAD');
                                 if (response.config) {

@@ -14,9 +14,9 @@
 			return $http.get(baseUrl + 'hosts');
 		};
 
-		this.updateHost = function (serverName, serverData) {
+		this.updateHost = function (serverData) {
 			return $http({
-				method: 'PUT', url: baseUrl + 'host/' + serverName, headers: {'Content-Type': 'application/json'}, data: serverData
+				method: 'PUT', url: baseUrl + 'host/' + serverData.name, headers: {'Content-Type': 'application/json'}, data: serverData
 			});
 		};
 
@@ -24,14 +24,14 @@
 			return $http.delete(baseUrl + 'host/' + serverName);
 		};
 
-		this.addHost = function (serverName, serverData) {
+		this.addHost = function (serverData) {
 			return $http({
-				method: 'POST', url: baseUrl + 'host/' + serverName, headers: {'Content-Type': 'application/json'}, data: serverData
+				method: 'POST', url: baseUrl + 'host/' + serverData.name, headers: {'Content-Type': 'application/json'}, data: serverData
 			});
 		};
 
 		this.queryStringSearch = function (searchString) {
-			var searchRequest = {query: {query_string: {query: searchString}}};
+			var searchRequest = {query: searchString};
 			return $http({url: baseUrl + 'queryStringSearch', method: "POST", headers: {'Content-Type': 'application/json'}, data: searchRequest})
 		}
 	}]);
@@ -46,9 +46,9 @@
 			});
 		};
 
-		this.addUser = function (userId, userData) {
+		this.addUser = function (userData) {
 			return $http({
-				method: 'POST', url: baseUrl + 'user/' + userId, headers: {'Content-Type': 'application/json'}, data: userData
+				method: 'POST', url: baseUrl + 'user/' + userData.userId, headers: {'Content-Type': 'application/json'}, data: userData
 			});
 		};
 

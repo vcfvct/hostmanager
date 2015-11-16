@@ -73,7 +73,7 @@ exports.updateHost = function (req, res) {
  **/
 exports.queryStringSearch = function (req, res) {
     var searchRequest = getBasicSearchRequest();
-    searchRequest.body = req.body;
+    searchRequest.body =  {query: {query_string: {query: req.body.query}}};
     client.count(searchRequest).then(
         function success(response) {
             searchRequest.size = response.count;
