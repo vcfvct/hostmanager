@@ -3,39 +3,46 @@
  * User: Han Li
  * Date: 11/10/15
  */
+var hostManagerPage = require('./hostmanagerPage.js');
+
 describe('host manager server list', function () {
 
 	beforeEach(function () {
 		browser.get('http://localhost:3000');
-
 	});
+
 	it('should have some server', function () {
-		var serverList = element.all(by.repeater('server in servers'));
-		expect(serverList.count()).toBeGreaterThan(0);
+		expect(hostManagerPage.serverList.count()).toBeGreaterThan(0);
 	});
 
+	/**
+	 * pagination should work by if server number is more than 15.
+	 */
 	it('page number should work', function () {
 		var newItemPerPage = 15;
-		element.all(by.repeater('server in servers')).then(function (servers) {
+		hostManagerPage.serverList.then(function (servers) {
 			if (servers.length > newItemPerPage) {
-				element(by.model('numberPerPage')).sendKeys(newItemPerPage);
-				var serverList = element.all(by.repeater('server in servers'));
-				expect(serverList.count()).toBe(newItemPerPage);
+				hostManagerPage.numberPerPageInput.sendKeys(newItemPerPage);
+				expect(hostManagerPage.serverList.count()).toBe(newItemPerPage);
 			}
 		});
 	});
 
-
+	/**
+	 * put 1st server name into the filter, then the 1st server name should still be the 1st one.
+	 */
 	it('Server filter should work', function () {
-		var firstElementText = element(by.repeater('server in servers').row(0).column('_source.name')).getText();
-		firstElementText.then(function (val) {
-			element(by.model('serverNameFilter')).sendKeys(val);
-			expect(firstElementText).toBe(val);
+		hostManagerPage.firstServerName.getText().then(function (val) {
+			hostManagerPage.serverNameFilterInput.sendKeys(val);
+			expect(hostManagerPage.firstServerName.getText()).toBe(val);
 		});
 	});
 
+	/**
+	 * some non-existence server name, should get empty server list.
+	 */
 	it('Server filter should have no result for random text', function () {
-		element(by.model('serverNameFilter')).sendKeys('Some Random Text');
+		hostManagerPage.serverNameFilterInput.sendKeys('Some Random Text');
 		expect(element.all(by.repeater('server in servers')).count()).toBe(0);
 	});
 
