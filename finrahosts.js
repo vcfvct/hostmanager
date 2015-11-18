@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 // login, show all hosts, search api does not need auth.
 // If we have a lot more such urls in future, we could place the middleware to the endpoints which need auth
 app.use('/api',
-    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch']})
+    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch', '/api/csvheaders']})
 );
 
 var router = express.Router();
@@ -44,6 +44,7 @@ router.route('/api/host/:id')
         .post(hostRestController.addHost)
         .put( hostRestController.updateHost);
 router.post('/api/queryStringSearch', hostRestController.queryStringSearch);
+router.get('/api/csvheaders', hostRestController.getCsvHeaders);
 //user login
 router.post('/api/login', userRestController.login);
 router.route('/api/user/:userId')

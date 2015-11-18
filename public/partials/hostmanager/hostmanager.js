@@ -219,38 +219,42 @@
 				var FILE_NAME = 'servers.csv';
 				//first column is for server name
 				var resultCsv = 'Server Name,';
-				angular.forEach($scope.csvHeaders, function (header) {
-					resultCsv = resultCsv.concat(header).concat(SEPARATOR);
-				});
-				//remove the tailing comma and append line break.
-				resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat(NEW_LINE);
-				// we get the lower cased headers from the predefined list
-				var lowerHeaders = $scope.csvHeaders.map(function (header) {
-					return header.toLowerCase();
-				});
-				//we generate the name:tags object where tags object contains lowercased-key and value pairs for original tags.
-				var lowerSelectedServers = {};
-				angular.forEach($scope.selectedServers, function (server) {
-					lowerSelectedServers[server.name] = {};
-					angular.forEach(server.tags, function(value, key){
-						lowerSelectedServers[server.name][key.toLowerCase()] = value;
-					});
-				});
-				// we now have BOTH required headers(tag names) and real tag key in lower case so we can compare ignore the case of tag key when output CSV.
-                angular.forEach($scope.selectedServers, function (server) {
-					//append server name
-					resultCsv = resultCsv.concat(server.name).concat(SEPARATOR);
-					var lowerTags = lowerSelectedServers[server.name];
-					angular.forEach(lowerHeaders, function (header) {
-						//if not present, we append a empty '' as place holder
-						resultCsv = resultCsv.concat(lowerTags[header] ? lowerTags[header] : '').concat(SEPARATOR);
-					});
-					//remove the tailing comma and append line break.
-					resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat(NEW_LINE);
-                });
-				var blob = new Blob([resultCsv], {type: "text/csv;charset=utf-8"});
-				//user filesaver js to save blob and trigger user download. in Safari, user might have use cmd + s to save the file since it opens blob in a tab
-                saveAs(blob, FILE_NAME);
+	            HostService.getCsvColumns().then(
+			            function success(headers){
+				            angular.forEach(headers, function (header) {
+					            resultCsv = resultCsv.concat(header).concat(SEPARATOR);
+				            });
+				            //remove the tailing comma and append line break.
+				            resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat(NEW_LINE);
+				            // we get the lower cased headers from the predefined list
+				            var lowerHeaders = headers.map(function (header) {
+					            return header.toLowerCase();
+				            });
+				            //we generate the name:tags object where tags object contains lowercased-key and value pairs for original tags.
+				            var lowerSelectedServers = {};
+				            angular.forEach($scope.selectedServers, function (server) {
+					            lowerSelectedServers[server.name] = {};
+					            angular.forEach(server.tags, function(value, key){
+						            lowerSelectedServers[server.name][key.toLowerCase()] = value;
+					            });
+				            });
+				            // we now have BOTH required headers(tag names) and real tag key in lower case so we can compare ignore the case of tag key when output CSV.
+				            angular.forEach($scope.selectedServers, function (server) {
+					            //append server name
+					            resultCsv = resultCsv.concat(server.name).concat(SEPARATOR);
+					            var lowerTags = lowerSelectedServers[server.name];
+					            angular.forEach(lowerHeaders, function (header) {
+						            //if not present, we append a empty '' as place holder
+						            resultCsv = resultCsv.concat(lowerTags[header] ? lowerTags[header] : '').concat(SEPARATOR);
+					            });
+					            //remove the tailing comma and append line break.
+					            resultCsv = resultCsv.substr(0, resultCsv.length - 1).concat(NEW_LINE);
+				            });
+				            var blob = new Blob([resultCsv], {type: "text/csv;charset=utf-8"});
+				            //user filesaver js to save blob and trigger user download. in Safari, user might have use cmd + s to save the file since it opens blob in a tab
+				            saveAs(blob, FILE_NAME);
+			            });
+
             }else{
 				$.bootstrapGrowl("Select at least ONE server before Download", {type: 'danger'});
 			}
@@ -264,7 +268,7 @@
 			$scope.selectedServers = [];
 			$scope.serverContentSearch = '';
 			//predefined csv headers(TAG names)
-			$scope.csvHeaders = ['AGS', 'CostCenter', 'Owner', 'Purpose', 'Role'];
+			$scope.csvHeaders = [];
 		}
 
 		init();

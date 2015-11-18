@@ -7,8 +7,9 @@
 (function () {
 	'use strict';
 	var FinraHostsService = angular.module('FinraHostsService', []);
-	FinraHostsService.service('HostService', ['$http', function ($http) {
+	FinraHostsService.service('HostService', ['$http', '$q', function ($http, $q) {
 		var baseUrl = '/api/';
+		var csvHeadersCache;
 
 		this.getAllHosts = function () {
 			return $http.get(baseUrl + 'hosts');
@@ -33,6 +34,20 @@
 		this.queryStringSearch = function (searchString) {
 			var searchRequest = {query: searchString};
 			return $http({url: baseUrl + 'queryStringSearch', method: "POST", headers: {'Content-Type': 'application/json'}, data: searchRequest})
+		};
+
+		this.getCsvColumns = function(){
+			if(csvHeadersCache){
+				return $q.when(csvHeadersCache);
+			}
+			// on first call, return the result of $http.get()
+			// note that 'then()' is chainable / returns a promise,
+			// so we can return that instead of a separate promise object
+			return $http.get(baseUrl + 'csvheaders').then(
+					function (res) {
+						csvHeadersCache = res.data;
+						return csvHeadersCache;
+					});
 		}
 	}]);
 

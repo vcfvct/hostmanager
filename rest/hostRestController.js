@@ -1,4 +1,5 @@
 var elasticsearch = require('./../config/elasticSearchConfig');
+var configedCsvHeaders = require('./../config/csvDownloadConfig').headers;
 
 var client = elasticsearch.esClient;
 var indexName = 'finratags';
@@ -86,6 +87,11 @@ exports.queryStringSearch = function (req, res) {
         function error(err) {
             errorHandler(err, res)
         });
+};
+
+//return the pre-configed csv download columns.
+exports.getCsvHeaders = function (req, res) {
+    res.json(configedCsvHeaders);
 };
 
 //general error handler
