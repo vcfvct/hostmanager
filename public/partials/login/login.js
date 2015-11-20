@@ -1,29 +1,31 @@
 (function () {
     'use strict';
-    var loginModule = angular.module('LoginModule', ['ngRoute', 'ui.bootstrap', 'FinraHostsDirectives', 'FinraHostsService']);
+    var loginModule = angular.module('LoginModule', ['ngRoute', 'FinraHostsDirectives', 'FinraHostsService']);
 
     loginModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/login', {
             templateUrl: 'partials/login/login.html',
-            controller: 'loginCtrl'
+            controller: 'loginController',
+            controllerAs: 'loginCtrl'
         });
     }]);
 
 
-    loginModule.controller('loginCtrl', ['$scope', '$http', 'UserService', '$location', function ($scope, $http, UserService, $location) {
+    loginModule.controller('loginController', ['$scope', '$http', 'UserService', '$location', function ($scope, $http, UserService, $location) {
+        var loginCtrl = this;
         (function () {
-            $scope.errorMessage = '';
+            loginCtrl.errorMessage = '';
         }());
 
-        $scope.login = function () {
-            if ($scope.loginForm.$valid) {
-                UserService.login($scope.userId, $scope.password).then(
+        loginCtrl.login = function () {
+            if (loginCtrl.loginForm.$valid) {
+                UserService.login(loginCtrl.userId, loginCtrl.password).then(
                     function (response) {
                         $scope.$emit('UserLogin', response.data);
                         $location.path("/hostmanager");
                     },
                     function error(err) {
-                        $scope.errorMessage = err.data;
+                        loginCtrl.errorMessage = err.data;
                         console.log(err);
                     });
             }
