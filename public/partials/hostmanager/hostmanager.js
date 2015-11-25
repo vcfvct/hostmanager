@@ -25,20 +25,28 @@
 		$scope.checkBoxClicked = function (clickedServer) {
 			//select
 			if (clickedServer.selected) {
+				//first push the selected server to the scope list
 				$scope.selectedServers.push(clickedServer._source);
+				//if only one server is selected currently, assign it to the scope's selectedServer to display details
 				if ($scope.selectedServers.length == 1) {
 					$scope.selectedServer = clickedServer._source;
 				}
 			}
 			//un-select
 			else {
-				if ($scope.selectedServers.length == 1) {
+				//if currently only 1 is checked, then un-check it would mean no server is select any more. Hence we clear the state
+				if ($scope.selectedServers.length === 1) {
 					clearState();
 				}
 				else {
+					//update the selected server list on the scope by filtering out the un-checked server
 					$scope.selectedServers = $scope.selectedServers.filter(function (server) {
 						return server.name !== clickedServer._source.name;
 					});
+					//if we only have 1 server checked after the un-select, display its detail
+					if($scope.selectedServers.length === 1){
+						$scope.selectedServer = $scope.selectedServers[0];
+					}
 				}
 			}
 		};
@@ -65,6 +73,9 @@
             });
         };
 
+		/**
+		 * refresh the content of the page with server data
+		 */
 		$scope.refresh = function () {
 			$scope.$emit('LOAD');
 			clearState();
@@ -136,6 +147,9 @@
 			$scope.tagsHolder = {};
 		};
 
+		/**
+		 * save tags to the server
+		 */
 		$scope.saveTags = function () {
 			var tagsToSave = {};
 			$scope.tagsHolder.forEach(function (tag) {
@@ -260,17 +274,13 @@
 			}
         };
 
-
-		function init() {
+		//execute init
+		~function init() {
 			$scope.refresh();
 			$scope.serverNameFilter = '';
 			$scope.numberPerPage = 10;
 			$scope.selectedServers = [];
 			$scope.serverContentSearch = '';
-			//predefined csv headers(TAG names)
-			$scope.csvHeaders = [];
-		}
-
-		init();
+		}();
 	}]);
 }());

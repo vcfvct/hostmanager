@@ -68,6 +68,7 @@
                  </span>
             </div>
         </form>
+        <!--display server detail when single server selected-->
         <div id="single-server" ng-show="selectedServers.length <= 1">
             <h2>Server Details</h2>
             <hr/>
@@ -82,6 +83,7 @@
                     </div>
                 </div>
                 <uib-tabset justified="true">
+                    <!--tags tab-->
                     <uib-tab heading="Tags">
                         <div style="margin: 30px;">
                             <span><b>Tags</b></span>
@@ -118,6 +120,7 @@
                             <button class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</button>
                         </div>
                     </uib-tab>
+                    <!--internal info section, read only -->
                     <uib-tab heading="Internal Info">
                         <table class="table table-hover table-bordered table-striped">
                             <tr ng-repeat="(key, value) in selectedServer.internalInfo">
@@ -129,6 +132,7 @@
                 </uib-tabset>
             </div>
         </div>
+        <!--display server names when multi server selected -->
         <div id="multi-server" ng-show="selectedServers.length > 1">
             <h2>Selected Servers ({{selectedServers.length}})</h2>
 
