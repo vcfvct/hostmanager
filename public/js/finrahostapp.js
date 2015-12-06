@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	var FinraHostsApp = angular.module('FinraHostsApp',
-			['ui.bootstrap', 'ngRoute', 'FinraHostsDirectives' ,'sharedControllers', 'HostManager','CreateHost', 'LoginModule', 'CreateUser']);
+			['ui.bootstrap', 'ngRoute', 'ngAnimate', 'FinraHostsDirectives' ,'sharedControllers', 'HostManager','CreateHost', 'LoginModule', 'CreateUser']);
 
 	FinraHostsApp.config(['$routeProvider', function ($routeProvider) {
 		'use strict';
