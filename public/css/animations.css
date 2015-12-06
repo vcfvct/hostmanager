@@ -1,3 +1,8 @@
+/**
+ * More docs look at: https://docs.angularjs.org/api/ngAnimate
+**/
+
+
 /* use custom animation fade-in for view-frame */
 .view-frame.ng-enter {
     -webkit-animation: 0.5s fade-in;
@@ -42,4 +47,34 @@
 @-webkit-keyframes fade-out {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+
+
+/* set reference point */
+.tab-transition > .tab-content {
+    position: relative;
+}
+
+/* set animate effect */
+.tab-transition > .tab-content > .tab-pane{
+    transition: .2s linear opacity;
+}
+
+/* overwrite display: none and remove from document flow */
+.tab-transition > .tab-content > .tab-pane.active-remove {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block;
+}
+
+/* opacity=0 when removing "active" class */
+.tab-transition > .tab-content > .tab-pane.active-remove-active {
+    opacity: 0;
+}
+
+/* opacity=0 when adding "active" class */
+.tab-transition > .tab-content > .tab-pane.active-add {
+    opacity: 0;
 }
