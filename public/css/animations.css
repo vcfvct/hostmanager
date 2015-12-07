@@ -2,7 +2,6 @@
  * More docs look at: https://docs.angularjs.org/api/ngAnimate
 **/
 
-
 /* use custom animation fade-in for view-frame */
 .view-frame.ng-enter {
     -webkit-animation: 0.5s fade-in;
@@ -12,14 +11,6 @@
     z-index: 100;
 }
 
-/* use custom animation fade-out for view-frame */
-.view-frame.ng-leave {
-    -webkit-animation: 0.5s fade-out;
-    -moz-animation: 0.5s fade-out;
-    -o-animation: 0.5s fade-out;
-    animation: 0.5s fade-out;
-    z-index: 99;
-}
 
 /* define animation name fade-in for browsers */
 @keyframes fade-in {
@@ -35,46 +26,20 @@
     to { opacity: 1; }
 }
 
-/* define animation name fade-out for browsers */
-@keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-@-moz-keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-@-webkit-keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-
-
-/* set reference point */
-.tab-transition > .tab-content {
-    position: relative;
-}
+/****
+ Start of TAB Animations
+ ****/
 
 /* set animate effect */
 .tab-transition > .tab-content > .tab-pane{
     transition: .2s linear opacity;
 }
 
-/* overwrite display: none and remove from document flow */
-.tab-transition > .tab-content > .tab-pane.active-remove {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    display: block;
-}
-
-/* opacity=0 when removing "active" class */
-.tab-transition > .tab-content > .tab-pane.active-remove-active {
-    opacity: 0;
-}
-
 /* opacity=0 when adding "active" class */
 .tab-transition > .tab-content > .tab-pane.active-add {
     opacity: 0;
 }
+
+/****
+  END of TAB Animations
+****/
