@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //index page
 app.get('/', function (req, res) {
-   res.sendfile(__dirname + '/public/index.html')
+   res.sendfile(__dirname + '/public/index.html');
 });
 
 // login, show all hosts, search api does not need auth.

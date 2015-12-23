@@ -2,6 +2,9 @@
   "name": "finra-host",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
@@ -9,6 +12,7 @@
     "express": "^4.13.3",
     "express-jwt": "^3.1.0",
     "jsonwebtoken": "^5.4.1",
-    "serve-favicon": "^2.2.0"
+    "serve-favicon": "^2.2.0",
+    "bower": "^1.6.5"
   }
 }
