@@ -21,6 +21,11 @@
     max-width: 1200px;
 }
 
+/*the drop down menus should have 'hand' cursor when hovering*/
+ul.uib-dropdown-menu li a{
+    cursor: pointer;
+}
+
 /*json prettier*/
 pre {
     background-color: ghostwhite;
