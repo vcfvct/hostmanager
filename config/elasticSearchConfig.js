@@ -5,7 +5,7 @@
  * Time: 10:48
  **/
 var elasticSearch = require('elasticsearch');
-var config = require('./varConfig');
+var config = require(__dirname + '/varConfig');
 
 var client = new elasticSearch.Client({
     host: config.es.userName + ':'+ config.es.pw + '@' + config.es.ip + ':' + config.es.port,

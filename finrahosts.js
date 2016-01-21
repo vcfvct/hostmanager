@@ -1,11 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var hostRestController = require('./rest/hostRestController');
-var userRestController = require('./rest/userRestController');
+var hostRestController = require(__dirname + '/rest/hostRestController');
+var userRestController = require(__dirname + '/rest/userRestController');
 var favicon = require('serve-favicon');
 var jwt = require('express-jwt');
-var config = require('./config/varConfig');
+var config = require(__dirname + '/config/varConfig');
 var secret = config.secretToken;
 
 var app = express();
@@ -13,7 +13,7 @@ var app = express();
 //Lets define a port we want to listen to
 var port = config.express.port;
 
-app.use(favicon('./public/images/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 // we are specifying the html directory as another public directory
 app.use(express.static(path.join(__dirname, 'public')));
 

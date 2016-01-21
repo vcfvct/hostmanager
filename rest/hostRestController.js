@@ -1,5 +1,5 @@
-var elasticsearch = require('./../config/elasticSearchConfig');
-var configedCsvHeaders = require('./../config/csvDownloadConfig').headers;
+var elasticsearch = require(__dirname + '/../config/elasticSearchConfig');
+var configedCsvHeaders = require(__dirname + '/../config/csvDownloadConfig').headers;
 
 var client = elasticsearch.esClient;
 var indexName = 'finratags';
