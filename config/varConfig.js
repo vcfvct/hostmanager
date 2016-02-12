@@ -14,4 +14,8 @@ varConfig.express.port = process.env.NODE_JS_PORT || '3000';
 
 varConfig.secretToken = process.env.HOSTMANAGER_JWT_SECRET || '1CqHeOUDG6TZdukSmq7R656hoCsQuozM2Cd0eYijj0kuWEX7hKpZ1WrxhXdepnT';
 
+//the delimiter for incoming key value pair string. key1::value1|||key2::value2|||key3::value3.......
+varConfig.FIELDS_DELIMITER = '|||';
+varConfig.KEY_VALUE_DELIMITER = '::';
+
 module.exports = varConfig;

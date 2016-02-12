@@ -1,4 +1,5 @@
 var elasticsearch = require(__dirname + '/../config/elasticSearchConfig');
+var hostService = require(__dirname + '/../service/hostService');
 var configedCsvHeaders = require(__dirname + '/../config/csvDownloadConfig').headers;
 
 var client = elasticsearch.esClient;
@@ -92,6 +93,27 @@ exports.queryStringSearch = function (req, res) {
 //return the pre-configed csv download columns.
 exports.getCsvHeaders = function (req, res) {
     res.json(configedCsvHeaders);
+};
+
+exports.handleHostInternalInfo = function (req, res) {
+    var updateRequest = getBasicSearchRequest();
+    updateRequest.id = req.params.id;
+    var newInternalInfo = hostService.unMarshalDelimitedString(req.body);
+    console.log('Got internal update request for: ' + updateRequest.id + '. Content: ' + req.body.toString());
+    client.search(updateRequest).then(
+            function success(response){
+               if(response.hits.total == 1){
+                   var target = response.hits.hits[0];
+                   target._source.internalInfo = newInternalInfo;
+                   updateRequest.body = target._source;
+                   return client.index(updateRequest);
+               }
+            }).then(
+            function success(response){
+                res.json(response);
+            }, function error(err) {
+                errorHandler(err, res)
+            });
 };
 
 //general error handler

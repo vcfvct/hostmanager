@@ -35,9 +35,6 @@ pre {
 }
 
 /*for the input type search, re-enable the clear button which is normalized by bootstrap.*/
-input[type="search"] {
-    -webkit-appearance: searchfield;
-}
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
 }

@@ -19,6 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // for parsing application/json
 app.use(bodyParser.json());
+// for parsing text/plain
+app.use(bodyParser.text());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -29,9 +31,10 @@ app.get('/', function (req, res) {
 });
 
 // login, show all hosts, search api does not need auth.
+// For '/\/api\/internalInfo\/\w*/', regex is need since it has param in the url
 // If we have a lot more such urls in future, we could place the middleware to the endpoints which need auth
 app.use('/api',
-    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch', '/api/csvheaders']})
+    jwt({secret: secret}).unless({path: ['/api/login', '/api/hosts', '/api/queryStringSearch', '/api/csvheaders', /\/api\/internalInfo\/\w*/]})
 );
 
 var router = express.Router();
@@ -45,6 +48,8 @@ router.route('/api/host/:id')
         .put( hostRestController.updateHost);
 router.post('/api/queryStringSearch', hostRestController.queryStringSearch);
 router.get('/api/csvheaders', hostRestController.getCsvHeaders);
+//update internal info, require 'Content-Type:text/plain' header
+router.post('/api/internalInfo/:id', hostRestController.handleHostInternalInfo);
 //user login
 router.post('/api/login', userRestController.login);
 router.route('/api/user/:userId')
