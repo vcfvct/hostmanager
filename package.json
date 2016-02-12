@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "test": "./node_modules/.bin/mocha ./specs/*.spec.js --reporter spec"
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
@@ -14,5 +15,10 @@
     "jsonwebtoken": "^5.4.1",
     "serve-favicon": "^2.2.0",
     "bower": "^1.6.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3"
   }
 }
