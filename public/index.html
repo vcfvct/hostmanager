@@ -2,62 +2,55 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="utf-8"/>
-    <title>Elastic Search Integration</title>
+    <title>Elastic Search Integration-Webpack</title>
     <meta name="description" content="Elastic Search Integration"/>
-    <!-- Styles -->
-    <link href="libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="libraries/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet"/>
-    <link href="libraries/components-font-awesome/css/font-awesome.css" rel="stylesheet"/>
-    <link href="css/es-tags.css" rel="stylesheet"/>
-    <link href="css/animations.css" rel="stylesheet"/>
-
+    <script src="dist/finraHost.bundle.js"></script>
 </head>
-<body ng-controller="ParentCtrl">
-
+<body ng-controller="parentCtrl">
 <!--this controller is for the active menu(highlight selected)-->
-<nav class="navbar navbar-default ng-cloak" ng-controller="HeaderController" >
+<nav class="navbar navbar-default ng-cloak" ng-controller="headerCtrl" >
     <div class="row center-div">
         <div class="col-md-2">
             <img src="images/logo_small.png"/>
         </div>
 
         <div class="container-fluid col-md-8">
-                <div class="navbar-header">
-                    <!--this part is for repsonsive so that in mobile view we have the collpased menu-->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#hostmanager-navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+            <div class="navbar-header">
+                <!--this part is for repsonsive so that in mobile view we have the collpased menu-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#hostmanager-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                    <a class="navbar-brand" href="">
-                        <!--<i class="fa fa-home fa-lg"></i>-->
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="hostmanager-navbar">
-                    <ul class="nav navbar-nav">
-                        <li ng-class="{ active: isActive('/hostManager')}">
-                            <a href="#/hostManager">
-                                <i class="fa fa-dashboard fa-lg"></i>
-                                Host Manager
-                            </a>
-                        </li>
-                        <li ng-class="{ active: isActive('/createHost')}" ng-if="appUserData">
-                            <a href="#/createHost">
-                                <i class="fa fa-desktop fa-lg"></i>
-                                Create Host
-                            </a>
-                        </li>
-                        <li ng-class="{ active: isActive('/createUser')}" ng-if="appUserData">
-                            <a href="#/createUser">
-                                <i class="fa fa-user-plus fa-lg"></i>
-                                Create User
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="navbar-brand" href="">
+                    <!--<i class="fa fa-home fa-lg"></i>-->
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="hostmanager-navbar">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active: isActive('/hostManager')}">
+                        <a href="#/hostManager">
+                            <i class="fa fa-dashboard fa-lg"></i>
+                            Host Manager
+                        </a>
+                    </li>
+                    <li ng-class="{ active: isActive('/createHost')}" ng-if="appUserData">
+                        <a href="#/createHost">
+                            <i class="fa fa-desktop fa-lg"></i>
+                            Create Host
+                        </a>
+                    </li>
+                    <li ng-class="{ active: isActive('/createUser')}" ng-if="appUserData">
+                        <a href="#/createUser">
+                            <i class="fa fa-user-plus fa-lg"></i>
+                            Create User
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="col-md-2">
@@ -88,7 +81,8 @@
         <div class="fn-tag-line">
             &copy;
             <script>document.write(new Date().getFullYear())</script>
-            FINRA. <span class="fn-tagline-copy">All rights reserved. FINRA is a registered trademark of the Financial Industry Regulatory Authority, Inc.</span>
+            FINRA. <span
+                class="fn-tagline-copy">All rights reserved. FINRA is a registered trademark of the Financial Industry Regulatory Authority, Inc.</span>
         </div>
         <nav class="fn-footer-links">
             <a href="http://www.finra.org/Sitemap/" target="finwin" class="fn-first">Sitemap</a>
@@ -102,6 +96,7 @@
         </div>
     </div>
 </footer>
+
 
 <!--modal alert snippet which out-->
 <script type="text/ng-template" id="alertModalContent.html">
@@ -121,27 +116,8 @@
     </div>
 </script>
 
-<!-- Javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="libraries/jquery/dist/jquery.min.js"></script>
-<script src="libraries/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="libraries/angular/angular.min.js"></script>
-<script src="libraries/angular-route/angular-route.min.js"></script>
-<script src="libraries/angular-animate/angular-animate.min.js"></script>
-<script src="libraries/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="libraries/angular-utils-pagination/dirPagination.js"></script>
-<script src="libraries/bootstrap-growl/jquery.bootstrap-growl.js"></script>
-<script src="libraries/FileSaver.js/FileSaver.min.js"></script>
-
-<script src="js/directives.js"></script>
-<script src="js/finrahostapp.js"></script>
-<script src="js/sharedControllers.js"></script>
-<script src="js/finrahostsservice.js"></script>
-<script src="partials/hostmanager/hostmanager.js"></script>
-<script src="partials/createhost/createhost.js"></script>
-<script src="partials/createuser/createuser.js"></script>
-<script src="partials/login/login.js"></script>
+<!-- Javascript ================================================== -->
+<script src="js/vendor/FileSaver.min.js"></script>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

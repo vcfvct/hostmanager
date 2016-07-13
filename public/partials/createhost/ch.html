@@ -4,40 +4,40 @@
         <uib-tab heading="Create By Form">
             <div style="margin-top:20px; padding:30px" class="row panel panel-default">
                 <div class="col-md-8">
-                    <form id="newHostFieldForm" name="forms.newHostFieldForm" style="margin: 30px;">
+                    <form id="newHostFieldForm" name="vm.newHostFieldForm" style="margin: 30px;">
                         <div class="form-group required">
                             <label for="hostname" class="control-label">Host Name</label>
-                            <input id="hostname" name="hostname" type="text" ng-model="newFieldHost.name"
+                            <input id="hostname" name="hostname" type="text" ng-model="vm.newFieldHost.name"
                                    placeholder="Host Name" class="form-control" required focus-on-load/>
                         </div>
                         <p class="h4" style="margin: 30px 0;">
                             Tags
-                            <a class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</a>
+                            <a class="btn btn-info pull-right" ng-click="vm.addOneTag()">Add A Tag</a>
                         </p>
                         <table class="table table-hover table-bordered table-striped editable-table">
-                            <tr ng-repeat="tag in tagsHolder">
+                            <tr ng-repeat="tag in vm.tagsHolder">
                                 <td><input value="{{tag.key}}" ng-model="tag.key" required class="form-control col-md-4"/></td>
                                 <td><input value="{{tag.value}}" ng-model="tag.value" required class="form-control col-md-4"/></td>
                                 <td class="col-md-2">
-                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="deleteTag(tag.key)">Delete Tag</a>
+                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="vm.deleteTag(tag.key)">Delete Tag</a>
                                 </td>
                             </tr>
                         </table>
                         <hr/>
                         <p class="h4" style="margin: 30px 0;">
                             Internal Info
-                            <a class="btn btn-info pull-right" ng-click="addOneInfo()">Add A Info</a>
+                            <a class="btn btn-info pull-right" ng-click="vm.addOneInfo()">Add A Info</a>
                         </p>
                         <table class="table table-hover table-bordered table-striped editable-table">
-                            <tr ng-repeat="newInfo in internalInfoHolder">
+                            <tr ng-repeat="newInfo in vm.internalInfoHolder">
                                 <td><input value="{{newInfo.key}}" ng-model="newInfo.key" class="form-control col-md-4" required/></td>
                                 <td><input value="{{newInfo.value}}" ng-model="newInfo.value" class="form-control col-md-4" required/></td>
                                 <td class="col-md-2">
-                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="deleteInfo(newInfo.key)" >Delete Info</a>
+                                    <a class="btn btn-default btn-raised cell-delete-button" ng-click="vm.deleteInfo(newInfo.key)" >Delete Info</a>
                                 </td>
                             </tr>
                         </table>
-                        <button id="add-host-form" ng-click="addFormHost()" class="btn btn-primary pull-right">Submit</button>
+                        <button id="add-host-form" ng-click="vm.addFormHost()" class="btn btn-primary pull-right">Submit</button>
                     </form>
                 </div>
                 <div class="col-md-4">
@@ -54,13 +54,13 @@
         <uib-tab heading="Create By JSON">
             <div id="formContainer" style="margin-top:20px; padding:30px" class="row panel panel-default">
                 <div class="col-md-7">
-                    <form id="newHostForm" name="forms.newHostForm">
+                    <form id="newHostForm" name="vm.newHostForm">
                         <div class="form-group required">
                             <label for="hostDetail" class="control-label">Host Content</label>
-                            <textarea id="hostDetail" name="hostDetail" ng-model="newHostJson" class="form-control"
+                            <textarea id="hostDetail" name="hostDetail" ng-model="vm.newHostJson" class="form-control"
                                       placeholder="Host Detail (JSON)" required style="height: 500px;" focus-on-load></textarea>
                         </div>
-                        <button id="add-host" ng-click="addHost(newHostJson)" class="btn btn-primary">Submit</button>
+                        <button id="add-host" ng-click="vm.addHost(vm.newHostJson)" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="col-md-5">

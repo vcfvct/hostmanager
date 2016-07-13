@@ -2,13 +2,13 @@
 
             <div id="formContainer" style="margin-top:20px; padding:30px" class="row panel panel-default">
                 <div class="col-md-7">
-                    <form id="newUserForm" name="forms.newUserForm">
+                    <form id="newUserForm" name="vm.newUserForm">
                         <div class="form-group required">
                             <label for="userDetail" class="control-label">New User</label>
-                            <textarea id="userDetail" name="userDetail" ng-model="newUserJson" class="form-control"
+                            <textarea id="userDetail" name="userDetail" ng-model="vm.newUserJson" class="form-control"
                                       placeholder="New User Detail (JSON)" required style="height: 500px;" focus-on-load></textarea>
                         </div>
-                        <button id="add-user" ng-click="addUser(newUserJson)" class="btn btn-primary">Submit</button>
+                        <button id="add-user" ng-click="vm.addUser(vm.newUserJson)" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="col-md-5">

@@ -5,8 +5,8 @@
                 <div class="btn-group" uib-dropdown>
                     <button id="split-button" type="button" class="btn btn-default" style="padding: 5px;">
                 <span>
-                    <input type="checkbox" ng-click="toggleSelectAll()" class="checkbox" id="selectAllCheckBox"
-                           ng-model="isSelectAll"/>
+                    <input type="checkbox" ng-click="vm.toggleSelectAll()" class="checkbox" id="selectAllCheckBox"
+                           ng-model="vm.isSelectAll"/>
                     <label for="selectAllCheckBox"></label>
                 </span>
                     </button>
@@ -16,14 +16,14 @@
                         <span class="sr-only">Split button!</span>
                     </button>
                     <ul class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
-                        <li role="menuitem" ng-click="selectAll()"><a>All</a></li>
+                        <li role="menuitem" ng-click="vm.selectAll()"><a>All</a></li>
                         <li class="divider"></li>
-                        <li role="menuitem" ng-click="deselectAll()"><a>None</a></li>
+                        <li role="menuitem" ng-click="vm.deselectAll()"><a>None</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-sm-8" style="margin-left: -30px;">
-                <button class="btn btn-default btn-raised" confirm-click="saveCsv()" uib-tooltip="Download CSV"
+                <button class="btn btn-default btn-raised" confirm-click="vm.saveCsv()" uib-tooltip="Download CSV"
                         confirm-message="Are you sure you want to download these server-tags as CSV ?" style="padding: 13px">
                     <i class="fa fa-download"></i>
                 </button>
@@ -33,21 +33,21 @@
         <div class="panel panel-default" id="formContainer" style="margin-top:20px; padding:30px">
             <div class="form-group">
                 <label for="serverFilter">Server Name Filter</label>
-                <input id="serverFilter" placeholder="Enter Server Name" ng-model="serverNameFilter" class="form-control"/>
+                <input id="serverFilter" placeholder="Enter Server Name" ng-model="vm.serverNameFilter" class="form-control"/>
             </div>
             <!--The order of pipes matters! itemsPerPage should go last-->
-            <div dir-paginate="server in servers | filter:{_source: {name: serverNameFilter}} | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
+            <div dir-paginate="server in vm.servers | filter:{_source: {name: vm.serverNameFilter}} | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
                  class="host-name-list">
                 <span>
-                    <input type="checkbox" ng-model='server.selected' ng-click="checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
+                    <input type="checkbox" ng-model='server.selected' ng-click="vm.checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
                     <label for="server{{$index}}"></label>
                 </span>
-                <a class="host-name" ng-click="serverNameClicked(server)">{{ server._source.name }}</a>
+                <a class="host-name" ng-click="vm.serverNameClicked(server)">{{ server._source.name }}</a>
             </div>
             <div class="form-group row" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #ddd;">
                 <label for="numberPerPage" class="col-sm-8">Servers Per Page</label>
                 <div class=" col-sm-4">
-                    <input id="numberPerPage" type="number" ng-model="numberPerPage" class="form-control"/>
+                    <input id="numberPerPage" type="number" ng-model="vm.numberPerPage" class="form-control"/>
                 </div>
             </div>
         </div>
@@ -58,26 +58,26 @@
     <div class="col-sm-9">
         <form class="form" style="margin-top: 20px;">
             <div class="input-group ">
-                <input id="server-search" placeholder="Enter Server Info/Tags to search, * as wild card." ng-model="serverContentSearch"
+                <input id="server-search" placeholder="Enter Server Info/Tags to search, * as wild card." ng-model="vm.serverContentSearch"
                        uib-tooltip="You can search plain string, use * as wild card. Or you can use lucene syntax like: (tags.AGS:RC AND tags.Role:Oracle) OR tags.Owner:Bill"
                        tooltip-trigger="focus" type="search" focus-on-load class="form-control" />
                  <span class="input-group-btn">
-                    <button class="btn btn-default" ng-click="searchContent()">
+                    <button class="btn btn-default" ng-click="vm.searchContent()">
                         <i class="fa fa-search fa-1x"></i>
                     </button>
                  </span>
             </div>
         </form>
         <!--display server detail when single server selected-->
-        <div id="single-server" ng-show="selectedServers.length <= 1">
+        <div id="single-server" ng-show="vm.selectedServers.length <= 1">
             <h2>Server Details</h2>
             <hr/>
-            <div ng-show="selectedServer.name">
+            <div ng-show="vm.selectedServer.name">
                 <div style='margin:30px' class="row">
-                    <div class="col-md-9">Name: <b>{{selectedServer.name}}</b></div>
+                    <div class="col-md-9">Name: <b>{{vm.selectedServer.name}}</b></div>
                     <!--show when appUserData presents in the parent controller-->
                     <div class="col-md-3">
-                        <button class="btn btn-danger" confirm-click='deleteServer()' confirm-message="Delete This Server?" ng-if="appUserData">
+                        <button class="btn btn-danger" confirm-click='vm.deleteServer()' confirm-message="Delete This Server?" ng-if="vm.appUserData">
                             Delete This Server
                         </button>
                     </div>
@@ -88,42 +88,42 @@
                         <div style="margin: 30px;">
                             <span><b>Tags</b></span>
                             <!--show when not editing AND appUserData presents in the parent controller-->
-                            <div class="pull-right" ng-show="!editingTags && appUserData">
-                                <button class="btn btn-primary" ng-click="editTags()">Edit Tags</button>
+                            <div class="pull-right" ng-show="!vm.editingTags && vm.appUserData">
+                                <button class="btn btn-primary" ng-click="vm.editTags()">Edit Tags</button>
                             </div>
-                            <div class="pull-right" ng-show="editingTags" style="margin-left: 10px;">
-                                <button class="btn btn-default btn-raised" ng-click="cancelEdit()">Cancel</button>
+                            <div class="pull-right" ng-show="vm.editingTags" style="margin-left: 10px;">
+                                <button class="btn btn-default btn-raised" ng-click="vm.cancelEdit()">Cancel</button>
                             </div>
-                            <div class="pull-right" ng-show="editingTags" style="margin-left: 10px;">
-                                <button class="btn btn-success" ng-click="saveTags()">Save Tags</button>
+                            <div class="pull-right" ng-show="vm.editingTags" style="margin-left: 10px;">
+                                <button class="btn btn-success" ng-click="vm.saveTags()">Save Tags</button>
                             </div>
 
                         </div>
-                        <div id="static-tags" ng-show="!editingTags">
+                        <div id="static-tags" ng-show="!vm.editingTags">
                             <table class="table table-hover table-bordered table-striped">
-                                <tr ng-repeat="(key, value) in selectedServer.tags">
+                                <tr ng-repeat="(key, value) in vm.selectedServer.tags">
                                     <td class="col-md-6">{{key}}</td>
                                     <td class="col-md-6">{{value}}</td>
                                 </tr>
                             </table>
                         </div>
-                        <div id="editing-tags" ng-show="editingTags">
+                        <div id="editing-tags" ng-show="vm.editingTags">
                             <table class="table table-hover table-bordered table-striped editable-table" >
-                                <tr ng-repeat="tag in tagsHolder">
+                                <tr ng-repeat="tag in vm.tagsHolder">
                                     <td class="col-md-4"><input value="{{tag.key}}" ng-model="tag.key" class="form-control"/></td>
                                     <td class="col-md-4"><input value="{{tag.value}}" ng-model="tag.value" class="form-control"/></td>
                                     <td class="col-md-2">
-                                        <button class="btn btn-default btn-raised cell-delete-button" ng-click="deleteTag(tag.key)">Delete Tag</button>
+                                        <button class="btn btn-default btn-raised cell-delete-button" ng-click="vm.deleteTag(tag.key)">Delete Tag</button>
                                     </td>
                                 </tr>
                             </table>
-                            <button class="btn btn-info pull-right" ng-click="addOneTag()">Add A Tag</button>
+                            <button class="btn btn-info pull-right" ng-click="vm.addOneTag()">Add A Tag</button>
                         </div>
                     </uib-tab>
                     <!--internal info section, read only -->
                     <uib-tab heading="Internal Info">
                         <table class="table table-hover table-bordered table-striped">
-                            <tr ng-repeat="(key, value) in selectedServer.internalInfo">
+                            <tr ng-repeat="(key, value) in vm.selectedServer.internalInfo">
                                 <td class="col-md-6">{{key}}</td>
                                 <td class="col-md-6">{{value}}</td>
                             </tr>
@@ -133,11 +133,11 @@
             </div>
         </div>
         <!--display server names when multi server selected -->
-        <div id="multi-server" ng-show="selectedServers.length > 1">
-            <h2>Selected Servers ({{selectedServers.length}})</h2>
+        <div id="multi-server" ng-show="vm.selectedServers.length > 1">
+            <h2>Selected Servers ({{vm.selectedServers.length}})</h2>
 
             <table class="table table-hover table-bordered table-striped">
-                <tr ng-repeat="server in selectedServers">
+                <tr ng-repeat="server in vm.selectedServers">
                     <td>{{server.name}}</td>
                 </tr>
             </table>
