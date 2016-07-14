@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-material-design/dist/css/material.min.css';
 import 'components-font-awesome/css/font-awesome.min.css';
-import '../css/es-tags.css';
+import '../css/hm.css';
 import '../css/animations.css';
 
 import 'jquery';

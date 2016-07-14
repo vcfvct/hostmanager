@@ -268,3 +268,8 @@ input[type="checkbox"].checkbox:checked + label:before {
     outline: none;
 }
 /**********************end of spinner style*********************/
+
+.help-block{
+    padding: 20px;
+    border-radius: 5px;
+}
