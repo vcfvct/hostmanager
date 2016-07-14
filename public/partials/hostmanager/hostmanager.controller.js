@@ -280,10 +280,9 @@ class HostManagerController {
 						//user filesaver js to save blob and trigger user download. in Safari, user might have use cmd + s to save the file since it opens blob in a tab
 						window.saveAs(blob, FILE_NAME);
 					});
-
 		}
 		else {
-			$.bootstrapGrowl("Select at least ONE server before Download", {type: 'danger'});
+			$.bootstrapGrowl("Select at least ONE server before Download!", {type: 'danger'});
 		}
 	}
 }

@@ -2,7 +2,6 @@ var webpack = require("webpack");
 
 module.exports = {
 	entry: {
-		//testWP: __dirname + '/public/js/app.js',
 		finraHost: __dirname + '/public/js/index.js'
 
 	},
@@ -37,5 +36,13 @@ module.exports = {
 			$: "jquery",
 			jQuery: "jquery"
 		})
-	]
+	],
+	devServer: {
+		proxy: {
+			'/api/*': {
+				target: 'http://localhost:3000',
+				secure: false
+			}
+		}
+	}
 };
