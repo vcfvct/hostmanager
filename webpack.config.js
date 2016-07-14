@@ -29,10 +29,8 @@ module.exports = {
 				// Allow loading html through js
 				test: /\.html$/,
 				loader: 'raw'
-			},   {
-				test: /[\/\\]node_modules[\/\\]html5-filesaver\.js[\/\\]FileSaver\.js$/,
-				loader: "imports?this=>window"
-			}]
+			}
+		]
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
