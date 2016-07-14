@@ -13,10 +13,11 @@ import config from './app.config';
 import services from './services';
 import directives from './finraHostsDirectives';
 import controllers from './controllers';
-import loginModule from '../partials/login/index';
-import createHostModule from '../partials/createhost/index';
-import createUserModule from '../partials/createuser/index';
-import hostManagerModule from '../partials/hostmanager/index';
+//thanks to the name of the 'index.js in the module, we can import the dir directly
+import loginModule from '../partials/login';
+import createHostModule from '../partials/createhost';
+import createUserModule from '../partials/createuser';
+import hostManagerModule from '../partials/hostmanager';
 
 
 angular.module('FinraHostsApp', [ngAnimate, services, loginModule, hostManagerModule, directives, controllers, createHostModule, createUserModule])
