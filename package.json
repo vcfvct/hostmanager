@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "webpack -p --config webpack.prod.config.js",
     "start": "webpack-dev-server --output-public-path=/public/dist/",
     "test": "./node_modules/.bin/mocha ./specs/*.spec.js --reporter spec"
   },
