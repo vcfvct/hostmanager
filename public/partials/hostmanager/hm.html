@@ -1,4 +1,4 @@
-<div class="row ng-cloak">
+
     <div class="col-sm-3">
         <div class="row" style="border-bottom: 1px solid #ddd;">
             <div class="col-sm-4">
@@ -36,7 +36,7 @@
                 <input id="serverFilter" placeholder="Enter Server Name" ng-model="vm.serverNameFilter" class="form-control"/>
             </div>
             <!--The order of pipes matters! itemsPerPage should go last-->
-            <div dir-paginate="server in vm.servers | filter:{_source: {name: vm.serverNameFilter}} | orderBy:'_source.name' | itemsPerPage: numberPerPage track by $index"
+            <div dir-paginate="server in vm.servers | filter:{_source: {name: vm.serverNameFilter}} | orderBy:'_source.name' | itemsPerPage: vm.numberPerPage track by $index"
                  class="host-name-list">
                 <span>
                     <input type="checkbox" ng-model='server.selected' ng-click="vm.checkBoxClicked(server)" class="checkbox" id="server{{$index}}"/>
