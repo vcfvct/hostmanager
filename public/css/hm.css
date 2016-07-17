@@ -149,6 +149,13 @@ input[type="checkbox"].checkbox:checked + label:before {
     color: #ffffff !important;
 }
 
+
+.navbar .navbar-nav>li>a,
+.navbar .navbar-nav>li>a:hover,
+.navbar .navbar-nav>li>a:focus{
+    border-radius: 5px;
+}
+
 /*some tiny transitions for nav*/
 .navbar-default .navbar-nav>li>a {
     -webkit-transition: all ease .3s;
@@ -156,7 +163,7 @@ input[type="checkbox"].checkbox:checked + label:before {
     -o-transition: all ease .3s;
     transition: all ease .3s;
 }
-/**********************end of Nav Bar style*********************/
+/********************** End of Nav Bar style*********************/
 
 
 /*****************************************************************/

@@ -11,6 +11,7 @@
  * Timeout to 1001 because we have a animation time for 1s. If we focus too early, the page will be auto-scroll a bit because the nav bar has not shown.
  */
 export default function focusOnLoad($timeout) {
+    'use strict';
 	return {
 		restrict: 'AC',
 		link: function(_scope, _element) {

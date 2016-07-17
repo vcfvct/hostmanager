@@ -1,0 +1,57 @@
+<nav class="navbar navbar-default ng-cloak" >
+    <div class="row center-div">
+        <div class="col-md-2">
+            <img src="images/logo_small.png"/>
+        </div>
+
+        <div class="container-fluid col-md-8">
+            <div class="navbar-header">
+                <!--this part is for responsive so that in mobile view we have the collpased menu-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#hostmanager-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="hostmanager-navbar">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ active: isActive('/hostManager')}">
+                        <a href="#/hostManager">
+                            <i class="fa fa-dashboard fa-lg"></i>
+                            Host Manager
+                        </a>
+                    </li>
+                    <li ng-class="{ active: isActive('/createHost')}" ng-if="appUserData">
+                        <a href="#/createHost">
+                            <i class="fa fa-desktop fa-lg"></i>
+                            Create Host
+                        </a>
+                    </li>
+                    <li ng-class="{ active: isActive('/createUser')}" ng-if="appUserData">
+                        <a href="#/createUser">
+                            <i class="fa fa-user-plus fa-lg"></i>
+                            Create User
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-default btn-raised" href="#/login" ng-if="!appUserData" style="color:white;">
+                <i class="fa fa-sign-in fa-lg"></i> Login
+            </a>
+            <div ng-if="appUserData">
+                <span>Welcome  {{appUserData.userId}}</span>
+                <a class="btn btn-default btn-raised" ng-click="logout()" style="color:white;">
+                    <i class="fa fa-sign-in fa-lg"></i> Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
