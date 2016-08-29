@@ -3,7 +3,7 @@ var varConfig = {};
 varConfig.es = {};
 varConfig.express = {};
 
-varConfig.es.ip = process.env.THIS_IP || '10.162.64.189';
+varConfig.es.ip = process.env.THIS_IP || '127.0.0.1';
 varConfig.es.port = process.env.ES_PORT || '9200';
 varConfig.es.userName = process.env.ES_USER_NAME || 'es_admin';
 varConfig.es.pw = process.env.ES_PW || 'es_admin123';
